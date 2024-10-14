@@ -1,0 +1,80 @@
+/* Header Styling */
+.fengshui-header {
+    background-color: #8cd1ce;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between; /* Distributes space between child elements */
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+    height: 80px;
+  }
+  
+  /* Logo Section */
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 50px; /* Adjust logo size */
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    font-size: 26px;
+    font-weight: bold;
+    color: #2d2d2d;
+    font-family: 'Bookman', serif;;
+  }
+  
+  /* Navigation Styling */
+  .navigation {
+    display: flex;
+    flex-grow: 1; /* Allows the nav section to expand */
+    justify-content: center; /* Center the navigation links */
+    align-items: center; /* Align the links vertically */
+  }
+  
+  .navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 180px; /* Space between navigation items */
+    margin: 0;
+    padding: 0; /* Remove default padding */
+  }
+  
+  .navigation ul li {
+    font-size: 18px;
+  }
+  
+  .navigation ul li a {
+    text-decoration: none;
+    color: #2d2d2d;
+    transition: color 0.3s ease;
+  }
+  
+  .navigation ul li a:hover {
+    color: #ff7f7f; /* Color on hover */
+  }
+  
+  /* Cart and Login Section */
+  .login-cart {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .login-button {
+    background-color: #ff7f7f;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #ff4f4f;
+  }
+  
