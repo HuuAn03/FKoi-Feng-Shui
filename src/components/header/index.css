@@ -44,7 +44,8 @@
   }
   
   .navigation ul li {
-    font-size: 18px;
+    font-size: 24px;
+    font-weight: 500;
   }
   
   .navigation ul li a {
@@ -65,16 +66,41 @@
   }
   
   .login-button {
-    background-color: #ff7f7f;
+    background: linear-gradient(45deg, #ff7f7f, #ff4b4b);
     color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
+    padding: 12px 30px;
+    border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    cursor: pointer;
   }
   
   .login-button:hover {
-    background-color: #ff4f4f;
+    background: linear-gradient(45deg, #ff4b4b, #ff7f7f);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
   }
   
+  .login-button:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logout-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
+  .logout-button:hover {
+    background-color: darkred;
+  }

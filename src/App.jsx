@@ -18,6 +18,7 @@ import Layout from "./components/layout";
 
 import ProductPage from "./pages/Product";
 import ADS from "./pages/Ads";
+import Destiny from "./pages/destiny";
 
 
 function App() {
@@ -38,8 +39,12 @@ function App() {
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: "",
           element: <HomePage />,
+        },
+        {
+          path: "test",
+          element: <Test />,
         },
         {
           path: "adv",
@@ -48,6 +53,10 @@ function App() {
         {
           path: "product",
           element: <ProductPage />,
+        },
+        {
+          path: "destiny",
+          element: <Destiny />,
         },
       ],
     },

@@ -1,0 +1,109 @@
+/* Page Container */
+.ads-page-container {
+    padding: 20px;
+    background-color: #1f1f2e;
+    min-height: 100vh;
+}
+
+/* Banner Section */
+.ads-banner {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.ads-banner h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.ads-banner p {
+    font-size: 18px;
+    color: #c0c0c0;
+}
+
+/* Main Content Section */
+.ads-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Form Container */
+.ads-form-container {
+    width: 45%;
+    background-color: #2d2d3a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Fields */
+.ads-input, .ads-select .ant-select-selector {
+    background-color: #303040;
+    color: #000000;
+    border: 1px solid #44475a;
+    margin-bottom: 10px;
+}
+
+/* Placeholder */
+.ads-input::placeholder, 
+.ads-select .ant-select-selection-placeholder {
+    color: #05050a !important;
+    font-style: italic;
+}
+
+/* Plan Cards */
+.ads-plan-details {
+    width: 45%;
+}
+
+.ads-plan-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ads-plan-card {
+    width: 48%;
+    background-color: #2e2e3e;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.ads-plan-card:hover {
+    transform: scale(1.05);
+    background-color: #ff4d4f;
+}
+
+/* Button */
+.ads-submit-btn {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ads-content {
+        flex-direction: column;
+    }
+
+    .ads-plan-card {
+        width: 100%;
+    }
+}
+.ads-plan-card {
+    cursor: pointer;
+    border: 1px solid #d9d9d9;
+    transition: 0.3s;
+}
+
+.ads-plan-card.selected {
+    border-color: #1890ff;
+    background-color: #e92416;
+}

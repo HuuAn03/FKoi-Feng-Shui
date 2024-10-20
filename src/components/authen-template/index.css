@@ -158,7 +158,7 @@ h6 span {
   line-height: 22px;
   letter-spacing: 0.5px;
   outline: none;
-  color: #c4c3ca;
+  color: #070611;
   background-color: #1f2029;
   border: none;
   transition: all 200ms linear;
@@ -212,6 +212,8 @@ h6 span {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  min-height: 100vh; /* Ensure it takes the full viewport height */
+  width: 100%; /* Full width */
 }
 
 .authen-templat__form {

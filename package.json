@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@iconscout/react-unicons": "^2.0.2",
-    "@reduxjs/toolkit": "^2.2.8",
+    "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.20.5",
     "axios": "^1.7.7",
     "firebase": "^10.13.1",

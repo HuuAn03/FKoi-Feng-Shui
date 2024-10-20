@@ -1,12 +1,16 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.css"; 
 
 function Header() {
-  const cart = useSelector((store) => store.cart);
-
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("token");
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token
+    navigate("/login"); // Redirect to login page
+  };
   return (
     <header className="fengshui-header">
       <div className="logo">
@@ -24,9 +28,16 @@ function Header() {
        
       </nav>
       <div className="login-cart">
-          <Link to="/login" className="login-button">Log in</Link>
-          
-        </div>
+        {isLoggedIn ? (
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className="login-button">
+            Log in
+          </Link>
+        )}
+      </div>
     </header>
   );
 }

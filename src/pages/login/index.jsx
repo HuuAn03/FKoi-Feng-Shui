@@ -1,8 +1,6 @@
 import React from "react";
 import AuthenTemplate from "../../components/authen-template";
 import { Button, Form, Input } from "antd";
-
-
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../config/axios";
@@ -11,10 +9,7 @@ import { login } from "../../redux/features/userSlide";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  
-
+  const dispatch = useDispatch(); 
   const handleLogin = async (values) => {
     try {
       const response = await api.post("auth/login", values);
@@ -22,13 +17,10 @@ function LoginPage() {
       dispatch(login(response.data));
       const { role, token } = response.data;
       localStorage.setItem("token", token);
-
       if (role === "ADMIN") {
-        navigate("/dashboard");
-      } if (role === "CUSTOMER") {
-        navigate(""); // Redirect to home or user dashboard
+        navigate("/dashboard");      
       } else{
-        navigate("/login");
+        navigate("/");
       }
     } catch (err) {
       toast.error(err.response?.data || "Login failed.");
