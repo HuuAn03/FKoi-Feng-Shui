@@ -1,26 +1,50 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Card, Select } from 'antd';
-import { PhoneOutlined, DollarOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, Upload, Card } from 'antd';
+import { PhoneOutlined, DollarOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
 import api from '../../config/axios';
 import { toast } from 'react-toastify';
-import './ADS.css';
+import './Ads.css';
 
 function ADS() {
-    const [form] = Form.useForm(); // Tạo form instance
-    const [selectedPlan, setSelectedPlan] = useState(null); // Track plan được chọn
+    const [form] = Form.useForm();
+    const [fileList, setFileList] = useState([]);
+    const [uploadedImageUrl, setUploadedImageUrl] = useState(''); // State to store the image URL
 
+    // Handle form submission
     const handleAds = async (values) => {
+        const formData = new FormData();
+        Object.keys(values).forEach((key) => {
+            formData.append(key, values[key]);
+        });
+
+        // Append the image file if it exists
+        if (fileList.length > 0) {
+            formData.append('imageFile', fileList[0].originFileObj);
+        }
+
         try {
-            const response = await api.post("/ads", { ...values, advertisingPlan: selectedPlan });
-            toast.success("Your advertisement has been queued");
+            const response = await api.post("/ads", formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });          
+            const { imageUrl } = response.data;             
+            if (imageUrl) {
+                setUploadedImageUrl(imageUrl); // Store the image URL
+                toast.success("Your advertisement has been queued");
+            }
         } catch (e) {
             toast.error("Check your advertisement for errors");
         }
     };
 
-    const handlePlanClick = (plan) => {
-        setSelectedPlan(plan); // Cập nhật plan được chọn
+    const handleFileChange = ({ fileList }) => {
+        setFileList(fileList);
     };
+
+    const plans = [
+        { label: '3 Days', price: '150,000 VND', description: 'Ideal for quick promotions.' },
+        { label: '7 Days', price: '300,000 VND', description: 'Best for weekly offers.' },
+        { label: '30 Days', price: '1,200,000 VND', description: 'Perfect for long-term visibility.' },
+    ];
 
     return (
         <div className="ads-page-container">
@@ -119,34 +143,44 @@ function ADS() {
                         />
                     </Form.Item>
 
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        className="ads-submit-btn"
-                        disabled={!selectedPlan} // Disable nếu chưa chọn plan
+                    {/* File Upload */}
+                    <Form.Item
+                        name="file"
+                        label="Upload File"
+                        valuePropName="fileList"
+                        getValueFromEvent={(e) => e?.fileList}
                     >
+                        <Upload
+                            listType="picture"
+                            fileList={fileList}
+                            beforeUpload={() => false}
+                            onChange={handleFileChange}
+                        >
+                            <Button icon={<UploadOutlined />}>Upload File</Button>
+                        </Upload>
+                    </Form.Item>
+
+                    <Button type="primary" htmlType="submit" className="ads-submit-btn">
                         Submit
                     </Button>
                 </Form>
 
-                {/* Right-side advertisement plan details as Cards */}
+                {/* Display the uploaded image */}
+                {uploadedImageUrl && (
+                    <div className="ads-image-preview">
+                        <h2>Uploaded Image Preview</h2>
+                        <img src={uploadedImageUrl} alt="Uploaded Ad" style={{ width: '100%', maxWidth: '300px' }} />
+                    </div>
+                )}
+
                 <div className="ads-plan-details">
                     <h2>Advertisement Plans</h2>
                     <div className="ads-plan-cards">
-                        {[
-                            { label: '1 Day', value: 'planId', price: '$5' },
-                            { label: '3 Days', value: '3_days', price: '$12' },
-                            { label: '7 Days', value: '7_days', price: '$25' },
-                            { label: '30 Days', value: '30_days', price: '$80' },
-                            { label: '365 Days', value: '365_days', price: '$900' },
-                        ].map((plan) => (
-                            <Card
-                                key={plan.value}
-                                className={`ads-plan-card ${selectedPlan === plan.value ? 'selected' : ''}`}
-                                onClick={() => handlePlanClick(plan.value)}
-                            >
+                        {plans.map((plan) => (
+                            <Card key={plan.label} className="ads-plan-card">
                                 <h3>{plan.label}</h3>
-                                <p>{plan.price}</p>
+                                <p>{plan.description}</p>
+                                <p><strong>{plan.price}</strong></p>
                             </Card>
                         ))}
                     </div>

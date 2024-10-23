@@ -1,7 +1,7 @@
 /* Header Styling */
 .fengshui-header {
     background-color: #8cd1ce;
-    padding: 10px 30px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between; /* Distributes space between child elements */
     align-items: center;

@@ -54,37 +54,37 @@
 }
 
 /* Plan Cards */
+/* Plan Cards Section */
 .ads-plan-details {
     width: 45%;
 }
 
 .ads-plan-cards {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .ads-plan-card {
-    width: 48%;
     background-color: #2e2e3e;
     color: #fff;
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
-    transition: transform 0.3s;
-    cursor: pointer;
+    border: 1px solid #44475a;
+    cursor: default;
 }
 
-.ads-plan-card:hover {
-    transform: scale(1.05);
-    background-color: #ff4d4f;
+.ads-plan-card h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: #ffcc00;
 }
 
-/* Button */
-.ads-submit-btn {
-    width: 100%;
-    background-color: #007bff;
-    color: white;
+.ads-plan-card p {
+    margin: 0;
+    font-size: 16px;
+    color: #c0c0c0;
 }
 
 /* Responsive Design */
@@ -93,17 +93,7 @@
         flex-direction: column;
     }
 
-    .ads-plan-card {
+    .ads-plan-details {
         width: 100%;
     }
-}
-.ads-plan-card {
-    cursor: pointer;
-    border: 1px solid #d9d9d9;
-    transition: 0.3s;
-}
-
-.ads-plan-card.selected {
-    border-color: #1890ff;
-    background-color: #e92416;
 }

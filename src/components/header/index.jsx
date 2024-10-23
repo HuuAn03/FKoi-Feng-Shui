@@ -22,8 +22,8 @@ function Header() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/adv">Advertisement</Link></li>
           <li><Link to="/destiny">Destiny</Link></li>
-          <li><Link to="/productPage">Product</Link></li>
-          <li><Link to="/userPage">User</Link></li>
+          <li><Link to="/product">Product</Link></li>
+          <li><Link to="/user">User</Link></li>
         </ul>
        
       </nav>

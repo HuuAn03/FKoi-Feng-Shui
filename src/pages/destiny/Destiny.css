@@ -1,0 +1,44 @@
+.auth-template {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Light background for contrast */
+}
+
+.auth-card {
+  width: 600px; /* Set a fixed width for the card */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* Card background */
+}
+
+.form-container {
+  display: flex; /* Use flexbox to arrange forms */
+  justify-content: space-between; /* Space between input form and result display */
+}
+
+.input-form {
+  flex: 1; /* Allow the input form to take space on the left */
+}
+
+.form-style {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.submit-button {
+  margin-left: 10px; /* Space between DatePicker and button */
+}
+
+.result-container {
+  text-align: right; /* Align result text to the right */
+  margin-top: 20px; /* Space above the result container */
+}
+
+.result-text {
+  font-size: 1.2rem;
+  color: #4CAF50; /* Green color for result */
+  margin-top: 10px; /* Space above the result text */
+}

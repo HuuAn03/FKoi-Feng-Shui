@@ -15,10 +15,12 @@ import Test from "./pages/test";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Layout from "./components/layout";
-
 import ProductPage from "./pages/Product";
 import ADS from "./pages/Ads";
-import Destiny from "./pages/destiny";
+
+import FateCalculator from "./pages/destiny";
+import User from "./pages/user/User";
+import SuccessPage from "./pages/success/success";
 
 
 function App() {
@@ -56,8 +58,16 @@ function App() {
         },
         {
           path: "destiny",
-          element: <Destiny />,
+          element: <FateCalculator />,
         },
+        {
+          path: "user",
+          element: <User/>,
+        },
+        {
+          path: "success",
+          element: <SuccessPage/>,
+        }
       ],
     },
 
