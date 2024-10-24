@@ -5,8 +5,8 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
   line-height: 1.7;
-  color: #ffeba7;
-  background-color: #1f2029;
+  color: #333;
+  background-color: #ffffff;
 }
 
 a:hover {
@@ -14,11 +14,11 @@ a:hover {
 }
 
 .link {
-  color: #ffeba7;
+  color: #ff69b4; /* Pink color for links */
 }
 
 .link:hover {
-  color: #c4c3ca;
+  color: #ff85c2; /* Lighter pink on hover */
 }
 
 p {
@@ -27,7 +27,7 @@ p {
 }
 
 h2, h4, h6 {
-  color: #ffeba7;
+  color: #333; /* Dark gray for headers */
 }
 
 h2 {
@@ -45,6 +45,7 @@ h6 span {
   font-weight: 700;
 }
 
+/* Section Styles */
 .section {
   position: relative;
   width: 100%;
@@ -55,44 +56,23 @@ h6 span {
   min-height: 100vh;
 }
 
+/* Checkbox Styles */
 .checkbox:checked + label,
 .checkbox:not(:checked) + label {
-  position: relative;
-  display: block;
-  text-align: center;
-  width: 60px;
-  height: 16px;
-  border-radius: 8px;
-  padding: 0;
-  margin: 10px auto;
-  cursor: pointer;
-  background-color: #ffeba7;
+  background-color: #ff69b4; /* Pink color for the checkbox */
 }
 
 .checkbox:checked + label:before,
 .checkbox:not(:checked) + label:before {
-  position: absolute;
-  display: block;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  color: #ffeba7;
-  background-color: #020305;
-  font-family: 'unicons';
-  content: '\eb4f';
-  z-index: 20;
-  top: -10px;
-  left: -10px;
-  line-height: 36px;
-  text-align: center;
-  font-size: 24px;
-  transition: all 0.5s ease;
+  color: #ffffff;
+  background-color: #ff69b4; /* Pink for the icon background */
 }
 
 .checkbox:checked + label:before {
   transform: translateX(44px) rotate(-270deg);
 }
 
+/* Card Styles */
 .card-3d-wrap {
   position: relative;
   width: 440px;
@@ -114,9 +94,7 @@ h6 span {
 .card-front, .card-back {
   width: 100%;
   height: 100%;
-  background-color: #2b2e38;
-  background-image: url('/img/pattern_japanese-pattern-2_1_2_0-0_0_1__ffffff00_000000.png');
-  position: absolute;
+  background-color: #ffffff; /* White background */
   border-radius: 6px;
   transform-style: preserve-3d;
 }
@@ -129,6 +107,7 @@ h6 span {
   transform: rotateY(180deg);
 }
 
+/* Center Wrap */
 .center-wrap {
   position: absolute;
   width: 100%;
@@ -140,6 +119,7 @@ h6 span {
   display: block;
 }
 
+/* Form Styles */
 .form-group { 
   position: relative;
   display: block;
@@ -158,18 +138,18 @@ h6 span {
   line-height: 22px;
   letter-spacing: 0.5px;
   outline: none;
-  color: #070611;
-  background-color: #1f2029;
-  border: none;
+  color: #333;
+  background-color: #ffffff;
+  border: 2px solid #ff69b4; /* Pink border */
   transition: all 200ms linear;
-  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
 .form-style:focus,
 .form-style:active {
-  border: none;
+  border-color: #ff85c2; /* Lighter pink on focus */
   outline: none;
-  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+  box-shadow: 0 4px 12px 0 rgba(255, 105, 180, 0.3); /* Pink shadow on focus */
 }
 
 .input-icon {
@@ -180,9 +160,11 @@ h6 span {
   font-size: 24px;
   line-height: 48px;
   text-align: left;
+  color: #ff69b4; /* Pink color for icons */
   transition: all 200ms linear;
 }
 
+/* Button Styles */
 .btn {  
   border-radius: 4px;
   height: 44px;
@@ -194,19 +176,18 @@ h6 span {
   letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
-  background-color: #ffeba7;
-  color: #000000;
+  background-color: #ff69b4; /* Pink background */
+  color: #ffffff; /* White text */
   cursor: pointer;
 }
 
 .btn:hover {  
-  background-color: #000000;
-  color: #ffeba7;
-  box-shadow: 0 8px 24px 0 rgba(16,39,112,0.2);
+  background-color: #ff85c2; /* Lighter pink on hover */
+  color: #ffffff;
+  box-shadow: 0 8px 24px 0 rgba(255, 105, 180, 0.2); /* Pink shadow on hover */
 }
 
-/* Additional Styles for AuthenTemplate and Forms */
-
+/* AuthenTemplate Styles */
 .authen-template {
   display: flex;
   justify-content: center;
@@ -214,19 +195,20 @@ h6 span {
   padding: 20px;
   min-height: 100vh; /* Ensure it takes the full viewport height */
   width: 100%; /* Full width */
+  background-color: #ffffff; /* White background */
 }
 
 .authen-templat__form {
-  background-color: #2b2e38;
+  background-color: #ffffff;
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
 }
 
 .auth-form h2 {
-  color: #ffeba7;
+  color: #333;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -234,6 +216,7 @@ h6 span {
 .auth-form p {
   margin-top: 15px;
   text-align: center;
+  color: #333;
 }
 
 .auth-form .link {
@@ -241,17 +224,14 @@ h6 span {
 }
 
 .auth-form .input-icon i {
-  color: #ffeba7;
+  color: #ff69b4;
 }
 
 .auth-form input::placeholder {
-  color: #c4c3ca;
+  color: #999;
 }
 
 .auth-form button.btn {
   width: 100%;
   margin-top: 20px;
-}
-.placeholder {
-  color:#1f2029; /* Màu sắc cho placeholder */
 }

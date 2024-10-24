@@ -84,11 +84,11 @@ const User = () => {
                     <ul>
                         {plan.map((p) => (
                             <li
-                                key={p.planId} // Đảm bảo sử dụng đúng thuộc tính ID
+                                key={p.planId} 
                                 className="plan-item"
                                 onClick={() => {
-                                    console.log("Plan clicked:", p); // Kiểm tra kế hoạch đã nhấn
-                                    handlePlanClick(p); // Gọi hàm với toàn bộ đối tượng kế hoạch
+                                    console.log("Plan clicked:", p); 
+                                    handlePlanClick(p); 
                                 }}
                                 style={{ cursor: 'pointer' }}
                             >

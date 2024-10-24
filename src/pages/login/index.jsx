@@ -84,6 +84,7 @@ function LoginPage() {
           </Link>
         </div>
       </Form>
+      
     </AuthenTemplate>
   );
 }

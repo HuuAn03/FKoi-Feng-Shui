@@ -1,99 +1,110 @@
-/* Page Container */
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #333;
+  background-color: #f9f9f9; /* Light background for contrast */
+}
+
 .ads-page-container {
-    padding: 20px;
-    background-color: #1f1f2e;
-    min-height: 100vh;
+  padding: 20px;
 }
 
 /* Banner Section */
 .ads-banner {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #ffffff;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .ads-banner h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+  font-size: 2.5rem;
+  color: #ff69b4; /* Pink color for the title */
+  margin-bottom: 10px;
 }
 
 .ads-banner p {
-    font-size: 18px;
-    color: #c0c0c0;
+  color: #555; /* Slightly darker gray for contrast */
 }
 
-/* Main Content Section */
+/* Ads Content */
 .ads-content {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* White background for the form area */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Container */
+/* Form Styles */
 .ads-form-container {
-    width: 45%;
-    background-color: #2d2d3a;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px; /* Restrict max width for better layout */
 }
 
-/* Input Fields */
-.ads-input, .ads-select .ant-select-selector {
-    background-color: #303040;
-    color: #000000;
-    border: 1px solid #44475a;
-    margin-bottom: 10px;
+.ads-input,
+.ads-select {
+  margin-bottom: 20px; /* Space between input fields */
 }
 
-/* Placeholder */
-.ads-input::placeholder, 
-.ads-select .ant-select-selection-placeholder {
-    color: #05050a !important;
-    font-style: italic;
+/* Button Styles */
+.ads-submit-btn {
+  width: 100%;
+  margin-top: 10px;
 }
 
-/* Plan Cards */
-/* Plan Cards Section */
+/* Image Preview */
+.ads-image-preview {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ads-image-preview img {
+  width: 100%;
+  max-width: 300px; /* Keep max width for preview image */
+  border-radius: 8px;
+}
+
+/* Plan Details */
 .ads-plan-details {
-    width: 45%;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 600px; /* Restrict max width for plan details */
 }
 
 .ads-plan-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  justify-content: space-around; /* Space out plan cards */
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .ads-plan-card {
-    background-color: #2e2e3e;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #44475a;
-    cursor: default;
+  margin: 10px; /* Space around cards */
+  flex: 1 1 calc(30% - 20px); /* Responsive card width */
+  max-width: 200px; /* Ensure cards don’t get too wide */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9; /* Light background for cards */
+  transition: box-shadow 0.2s;
 }
 
-.ads-plan-card h3 {
-    font-size: 22px;
-    margin-bottom: 5px;
-    color: #ffcc00;
+.ads-plan-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
 }
 
-.ads-plan-card p {
-    margin: 0;
-    font-size: 16px;
-    color: #c0c0c0;
-}
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .ads-plan-cards {
+    flex-direction: column;
+    align-items: center; /* Center cards on smaller screens */
+  }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .ads-content {
-        flex-direction: column;
-    }
-
-    .ads-plan-details {
-        width: 100%;
-    }
+  .ads-plan-card {
+    max-width: 100%; /* Full width on mobile */
+  }
 }

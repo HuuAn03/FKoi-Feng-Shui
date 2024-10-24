@@ -1,10 +1,11 @@
 import React from "react";
-import "./index.css";
+import "./index.css"; // Đảm bảo đường dẫn đúng
 
 function AuthenTemplate({ children }) {
   return (
     <div className="authen-template">
-      <div className="authen-templat__form">{children}</div>
+      
+      <div className="authen-template__form">{children}</div>
     </div>
   );
 }

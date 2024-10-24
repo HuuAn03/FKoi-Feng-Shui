@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 import Layout from "./components/layout";
 import ProductPage from "./pages/Product";
 import ADS from "./pages/Ads";
-
 import FateCalculator from "./pages/destiny";
 import User from "./pages/user/User";
 import SuccessPage from "./pages/success/success";

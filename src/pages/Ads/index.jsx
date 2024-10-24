@@ -17,7 +17,6 @@ function ADS() {
             formData.append(key, values[key]);
         });
 
-        // Append the image file if it exists
         if (fileList.length > 0) {
             formData.append('imageFile', fileList[0].originFileObj);
         }
@@ -39,13 +38,7 @@ function ADS() {
     const handleFileChange = ({ fileList }) => {
         setFileList(fileList);
     };
-
-    const plans = [
-        { label: '3 Days', price: '150,000 VND', description: 'Ideal for quick promotions.' },
-        { label: '7 Days', price: '300,000 VND', description: 'Best for weekly offers.' },
-        { label: '30 Days', price: '1,200,000 VND', description: 'Perfect for long-term visibility.' },
-    ];
-
+   
     return (
         <div className="ads-page-container">
             {/* Banner Section */}
@@ -72,7 +65,6 @@ function ADS() {
                             className="ads-input"
                         />
                     </Form.Item>
-
                     <Form.Item
                         name="productType"
                         rules={[{ required: true, message: "Please select the product type" }]}
@@ -163,28 +155,8 @@ function ADS() {
                     <Button type="primary" htmlType="submit" className="ads-submit-btn">
                         Submit
                     </Button>
-                </Form>
-
-                {/* Display the uploaded image */}
-                {uploadedImageUrl && (
-                    <div className="ads-image-preview">
-                        <h2>Uploaded Image Preview</h2>
-                        <img src={uploadedImageUrl} alt="Uploaded Ad" style={{ width: '100%', maxWidth: '300px' }} />
-                    </div>
-                )}
-
-                <div className="ads-plan-details">
-                    <h2>Advertisement Plans</h2>
-                    <div className="ads-plan-cards">
-                        {plans.map((plan) => (
-                            <Card key={plan.label} className="ads-plan-card">
-                                <h3>{plan.label}</h3>
-                                <p>{plan.description}</p>
-                                <p><strong>{plan.price}</strong></p>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
+                </Form>                
+                {uploadedImageUrl}              
             </div>
         </div>
     );
