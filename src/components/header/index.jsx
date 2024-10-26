@@ -16,6 +16,7 @@ function Header() {
       <div className="logo">
         <img src="https://img.freepik.com/premium-vector/vector-illustration-koi-fish-with-beautiful-colors-minimalist-flat-style_1287411-59.jpg" alt="Logo" className="logo-image" />
         <span className="logo-text">FKoi FengShui</span>
+        
       </div>
       <nav className="navigation">
         <ul>

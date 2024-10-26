@@ -1,26 +1,59 @@
 .auth-template {
   padding: 20px;
+  background: linear-gradient(135deg, #f0f4ff, #e4e8fe);
 }
 
 .form-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px; /* Space between cards and tables */
+  margin-bottom: 20px;
 }
 
 .input-card,
 .result-card {
   flex: 1;
-  min-width: 250px; /* Set a minimum width to maintain layout */
-  margin: 0 10px; /* Space between cards */
+  min-width: 300px;
+  margin: 0 10px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease;
 }
 
-.table-container {
-  margin-top: 20px; /* Space above tables */
+.input-card:hover,
+.result-card:hover {
+  transform: scale(1.02);
 }
 
 .transparent-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Optional background for readability */
-  padding: 20px; /* Padding inside result card */
-  border-radius: 8px; /* Rounded corners */
+  background: rgba(255, 255, 255, 0.85);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.submit-button, .consult-button {
+  background-color: #ff7070;
+  color: #fff;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover, .consult-button:hover {
+  background-color: #ff4c4c;
+}
+
+.table-container {
+  margin-top: 30px;
+}
+
+.result-text {
+  font-size: 1.1em;
+  color: #4a4a4a;
+}
+
+.consult-button {
+  margin-top: 10px;
 }

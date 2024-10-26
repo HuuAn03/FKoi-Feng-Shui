@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import api from "../../config/axios";
 import Modal from './Modal';
 
+
 const User = () => {
     const [ads, setAds] = useState([]);
     const [plan, setPlan] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedAdId, setSelectedAdId] = useState(null);
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
 
     const fetchPublishedAds = async () => {
         try {
@@ -22,14 +26,16 @@ const User = () => {
         }
     };
 
+
     useEffect(() => {
         fetchPublishedAds();
     }, []);
 
+
     const handlePayment = async (adId) => {
         try {
             const choosePlan = await api.get("/plan");
-            console.log("Plans received:", choosePlan.data); // Kiểm tra dữ liệu nhận được
+            console.log("Plans received:", choosePlan.data);
             setPlan(choosePlan.data);
             setSelectedAdId(adId);
             setShowModal(true);
@@ -38,15 +44,27 @@ const User = () => {
         }
     };
 
-    const handlePlanClick = async (selectedPlan) => {
-        if (!selectedAdId) {
-            console.error("No Ad ID selected!");
+
+    const handlePlanClick = (plan) => {
+        setSelectedPlan(plan);
+    };
+
+
+    const handleConfirmClick = () => {
+        setShowConfirmation(true);
+    };
+
+
+    const handleFinalConfirm = async () => {
+        if (!selectedAdId || !selectedPlan) {
+            console.error("Ad ID or Plan ID is missing!");
             return;
         }
 
-        // Kiểm tra giá trị
+
         console.log("Selected Ad ID:", selectedAdId);
         console.log("Selected Plan ID:", selectedPlan.planId);
+
 
         try {
             const requestBody = {
@@ -54,12 +72,15 @@ const User = () => {
                 planId: selectedPlan.planId,
             };
 
+
             const response = await api.post(`/ads/${selectedAdId}/subscription`, requestBody);
             const paymentUrl = response.data;
 
-            window.location.href = paymentUrl; 
+
+            window.location.href = paymentUrl;
             console.log(paymentUrl);
-            setShowModal(false); 
+            setShowModal(false);
+            setShowConfirmation(false);
         } catch (error) {
             console.error("Error subscribing to plan:", error);
             if (error.response) {
@@ -70,6 +91,7 @@ const User = () => {
         }
     };
 
+
     return (
         <div>
             <div className="ad-list">
@@ -78,31 +100,48 @@ const User = () => {
                 ))}
             </div>
 
+
             <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <h2>Select a Plan</h2>
-                {plan.length > 0 ? (
+                <div className="modal-left">
+                    <h3>Selected Plan Details</h3>
+                    {selectedPlan ? (
+                        <div className="plan-details">
+                            <p>Name: {selectedPlan.name}</p>
+                            <p>Price: ${selectedPlan.price}</p>
+                            <p>Description: {selectedPlan.description}</p>
+                            <button onClick={handleConfirmClick}>Confirm</button>
+                            {showConfirmation && (
+                                <div className="confirmation-message">
+                                    <p>Are you sure you want to confirm this plan?</p>
+                                    <button onClick={handleFinalConfirm}>Yes, Confirm</button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <p>Please select a plan.</p>
+                    )}
+                </div>
+
+
+                <div className="modal-right">
+                    <h3>Available Plans</h3>
                     <ul>
                         {plan.map((p) => (
                             <li
-                                key={p.planId} 
-                                className="plan-item"
-                                onClick={() => {
-                                    console.log("Plan clicked:", p); 
-                                    handlePlanClick(p); 
-                                }}
-                                style={{ cursor: 'pointer' }}
+                                key={p.planId}
+                                className={`plan-item ${selectedPlan && selectedPlan.planId === p.planId ? 'selected' : ''}`}
+                                onClick={() => handlePlanClick(p)}
                             >
                                 {p.name} - ${p.price}
                             </li>
                         ))}
                     </ul>
-                ) : (
-                    <p>Loading plans...</p>
-                )}
+                </div>
             </Modal>
         </div>
     );
 };
+
 
 const Ad = ({ ad, handlePayment }) => {
     return (
@@ -118,5 +157,6 @@ const Ad = ({ ad, handlePayment }) => {
         </div>
     );
 };
+
 
 export default User;
