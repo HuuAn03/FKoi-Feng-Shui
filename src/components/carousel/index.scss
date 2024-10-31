@@ -1,36 +1,51 @@
+
 .carousel {
   width: 80%;
   max-width: 1000px;
   margin: 20px auto;
-  border-radius: 10px;
+  border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+
 
   .swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
+
 
     img {
       width: 100%;
       height: auto;
       object-fit: cover;
       border-radius: 10px;
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.4s ease-in-out; // Smooth scaling effect
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Shadow for each image
     }
+
 
     img:hover {
-      transform: scale(1.05);
+      transform: scale(1.08); // Slightly more pronounced scaling
     }
   }
 
+
   .swiper-pagination-bullet {
-    background-color: #ff7e79; // Pastel pink accent
-    opacity: 0.6;
+    background-color: #ff7e79; // Soft pastel pink
+    opacity: 0.7;
+    width: 12px;  // Slightly larger bullet for emphasis
+    height: 12px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
+
   .swiper-pagination-bullet-active {
-    background-color: #ff4d4d; // Highlight for active slide
+    background-color: #ff4d4d; // Brighter red accent for active slide
     opacity: 1;
+    transform: scale(1.2); // Enlarged active bullet for visibility
   }
 }
+
+
+

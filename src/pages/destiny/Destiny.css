@@ -1,3 +1,5 @@
+/* Destiny.css */
+
 .auth-template {
   padding: 20px;
   background: linear-gradient(135deg, #f0f4ff, #e4e8fe);
@@ -27,31 +29,34 @@
 }
 
 .transparent-container {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.8);
   padding: 15px;
   border-radius: 8px;
 }
 
-.submit-button, .consult-button {
-  background-color: #ff7070;
-  color: #fff;
-  border: none;
-  width: 100%;
+.table-title {
+  font-size: 20px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
 }
 
-.submit-button:hover, .consult-button:hover {
-  background-color: #ff4c4c;
+.ant-table-thead > tr > th {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
 }
 
-.table-container {
-  margin-top: 30px;
+.ant-table-tbody > tr > td {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.result-text {
-  font-size: 1.1em;
-  color: #4a4a4a;
+.table-cell-content {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.submit-button {
+  width: 100%;
 }
 
 .consult-button {

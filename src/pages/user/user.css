@@ -1,46 +1,99 @@
-/* General styles for the ad container */
+/* Container for user info and ad list, aligning them side by side */
+.user-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Styling for the user info form on the left */
+.user-info {
+  flex: 1;
+  background-color: #f0f0f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling individual form inputs */
+.user-info h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-info input,
+.user-info select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.user-info button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.user-info button:hover {
+  background-color: #45a049;
+}
+
+/* Styling for the ad list on the right */
+.ad-list-container {
+  flex: 2;
+}
+
 .ad-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  /* Individual ad card styling */
-  .ad {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-  }
-  
-  /* Styling for images in the ad */
-  .ad img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  
-  /* Styling for the pay button */
-  .ad button {
-    background-color: #4CAF50; /* Green */
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: background-color 0.3s;
-  }
-  
-  /* Hover effect for the button */
-  .ad button:hover {
-    background-color: #45a049;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Individual ad card styling */
+.ad {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+/* Styling for images in the ad */
+.ad img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Styling for the pay button */
+.ad button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for the button */
+.ad button:hover {
+  background-color: #45a049;
+}

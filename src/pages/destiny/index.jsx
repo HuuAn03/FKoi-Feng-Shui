@@ -28,9 +28,8 @@ const Destiny = () => {
       };
 
       setFateType(fateResponse);
-      toast.success("Thành công! Mệnh của bạn là: " + fateResponse.fateType);
     } catch (error) {
-      toast.error(error.response?.data || "Đã xảy ra lỗi khi tính mệnh");
+      toast.error("Failed to calculate fate");
     } finally {
       setLoading(false);
     }
@@ -41,50 +40,76 @@ const Destiny = () => {
       setConsultLoading(true);
       const response = await api.get(`/consultations?fate=${fate.fateType}`);
       setConsultData(response.data);
-      toast.success("Consultation data fetched successfully!");
     } catch (error) {
-      toast.error(error.response?.data || "Đã xảy ra lỗi khi lấy thông tin tư vấn");
+      toast.error(error.response?.data || "Failed to fetch consultation data");
     } finally {
       setConsultLoading(false);
     }
   };
+
+  const renderColors = (colors) => {
+    return colors.map((color, index) => (
+      <span
+        key={index}
+        style={{
+          backgroundColor: color.toLowerCase(),
+          color: "white",
+          padding: "4px 8px",
+          borderRadius: "4px",
+          margin: "2px",
+        }}
+      >
+        {color}
+      </span>
+    ));
+  };
+
   const renderKoiTable = () => {
     if (!consultData || !consultData.koiRecommendations || consultData.koiRecommendations.length === 0) {
-      return null; 
+      return null;
     }
 
     const koiColumns = [
       {
-        title: 'Image',
-        dataIndex: 'image',
-        key: 'image',
-        render: (imageUrl) => <img src={imageUrl} alt="Koi" style={{ width: 50, height: 50 }} />,
+        title: "Image",
+        dataIndex: "image",
+        key: "image",
+        render: (imageUrl) => (
+          <img src={imageUrl} alt="Koi" style={{ width: 200, height: 200, borderRadius: "10px" }} />
+        ),
+        width: 250,
+        align: "center",
       },
       {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+        width: 150,
+        align: "center",
       },
       {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        width: 500,
+        align: "center",
       },
       {
-        title: 'Price',
-        dataIndex: 'price',
-        key: 'price',
+        title: "Market Price",
+        dataIndex: "price",
+        key: "price",
         render: (text) => `${text} VND`,
+        width: 150,
+        align: "right",
       },
     ];
-
-    const koiDataSource = consultData.koiRecommendations.map(koi => ({
-      key: koi.koi.koiId, 
-      image: koi.koi.imageUrl, 
+    const koiDataSource = consultData.koiRecommendations.map((koi) => ({
+      key: koi.koi.koiId,
+      image: koi.koi.imageUrl,
       name: koi.koi.species,
       description: koi.koi.description,
-      size: koi.recommendSize, 
-      price: koi.koi.marketValue, 
+      size: koi.recommendSize,
+      price: koi.koi.marketValue,
     }));
 
     return (
@@ -92,37 +117,45 @@ const Destiny = () => {
         dataSource={koiDataSource}
         columns={koiColumns}
         pagination={false}
-        rowKey="key" 
-        title={() => <Title level={4}>Koi Recommendations</Title>}
+        rowKey="key"
+        title={() => <Title level={4} className="table-title">Koi Recommendations</Title>}
+        className="table-cell-content"
         style={{ marginTop: 20 }}
       />
     );
   };
+
   const renderPondTable = () => {
     if (!consultData || !consultData.pondRecommendations || consultData.pondRecommendations.length === 0) {
-      return null; 
+      return null;
     }
 
     const pondColumns = [
       {
-        title: 'Placement',
-        dataIndex: 'placement',
-        key: 'placement',
+        title: "Placement",
+        dataIndex: "placement",
+        key: "placement",
+        width: 150,
+        align: "center",
       },
       {
-        title: 'Direction',
-        dataIndex: 'direction',
-        key: 'direction',
+        title: "Direction",
+        dataIndex: "direction",
+        key: "direction",
+        width: 150,
+        align: "center",
       },
       {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        width: 500,
+        align: "center",
       },
     ];
 
-    const pondDataSource = consultData.pondRecommendations.map(pond => ({
-      key: pond.pond.pondFeatureId, 
+    const pondDataSource = consultData.pondRecommendations.map((pond) => ({
+      key: pond.pond.pondFeatureId,
       placement: pond.pond.placement,
       direction: pond.pond.direction,
       description: pond.pond.description,
@@ -133,12 +166,14 @@ const Destiny = () => {
         dataSource={pondDataSource}
         columns={pondColumns}
         pagination={false}
-        rowKey="key" 
-        title={() => <Title level={4}>Pond Recommendations</Title>}
+        rowKey="key"
+        title={() => <Title level={4} className="table-title">Pond Recommendations</Title>}
+        className="table-cell-content"
         style={{ marginTop: 20 }}
       />
     );
   };
+
   const renderProductTable = () => {
     if (!consultData || !consultData.productRecommendations || consultData.productRecommendations.length === 0) {
       return null;
@@ -146,30 +181,38 @@ const Destiny = () => {
 
     const productColumns = [
       {
-        title: 'Image',
-        dataIndex: 'image',
-        key: 'image',
+        title: "Image",
+        dataIndex: "image",
+        key: "image",
         render: (imageUrl) => <img src={imageUrl} alt="Product" style={{ width: 50, height: 50 }} />,
+        width: 100,
+        align: "center",
       },
       {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+        width: 150,
+        align: "center",
       },
       {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        width: 500,
+        align: "center",
       },
       {
-        title: 'Price',
-        dataIndex: 'price',
-        key: 'price',
+        title: "Price",
+        dataIndex: "price",
+        key: "price",
         render: (text) => `${text} VND`,
+        width: 150,
+        align: "right",
       },
     ];
 
-    const productDataSource = consultData.productRecommendations.map(product => ({
+    const productDataSource = consultData.productRecommendations.map((product) => ({
       key: product.product.productId,
       image: product.product.imageUrl,
       name: product.product.name,
@@ -183,7 +226,8 @@ const Destiny = () => {
         columns={productColumns}
         pagination={false}
         rowKey="key"
-        title={() => <Title level={4}>Product Recommendations</Title>}
+        title={() => <Title level={4} className="table-title">Product Recommendations</Title>}
+        className="table-cell-content"
         style={{ marginTop: 20 }}
       />
     );
@@ -195,7 +239,7 @@ const Destiny = () => {
         <Card className="input-card">
           <Title level={2} style={{ textAlign: "center" }}>Nhập Thông Tin Cá Nhân</Title>
           <Form onFinish={calculateFate} layout="vertical">
-            <Form.Item name="birthdate" rules={[{ required: true, message: "Please select your birthdate!" }]}>             
+            <Form.Item name="birthdate" rules={[{ required: true, message: "Please select your birthdate!" }]}>
               <DatePicker placeholder="Select Birthdate" style={{ width: "100%" }} />
             </Form.Item>
             <Form.Item>
@@ -218,8 +262,8 @@ const Destiny = () => {
                 <Title level={3}>Kết quả:</Title>
                 <Paragraph>Mệnh của bạn là: <strong>{fate.fateType}</strong></Paragraph>
                 <Paragraph>{fate.description}</Paragraph>
-                <Paragraph>Hợp màu: <strong>{fate.compatibleColors}</strong></Paragraph>
-                <Paragraph>Hợp không màu: <strong>{fate.incompatibleColors}</strong></Paragraph>
+                <Paragraph>Hợp màu: {renderColors(fate.compatibleColors)}</Paragraph>
+                <Paragraph>Không hợp màu: {renderColors(fate.incompatibleColors)}</Paragraph>
                 <Button type="default" className="consult-button" onClick={handleConsult} loading={consultLoading}>
                   Consult Item
                 </Button>

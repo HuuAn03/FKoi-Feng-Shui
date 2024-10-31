@@ -3,21 +3,16 @@ import { Button, Result } from "antd";
 import api from "../../config/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
 function SuccessPage() {
     const location = useLocation();
     const [message, setMessage] = useState([]);
     const [redirectUrl, setRedirectUrl] = useState([]);
     const [adId1, setAdId1] = useState(null);
     const navigate = useNavigate();
-
-
     const postOrderID = async () => {
         const queryParams = new URLSearchParams(location.search);
         const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
         const vnp_TxnRef = queryParams.get("vnp_TxnRef");
-
-
         try {
             const response = await api.get(`/ads/vn-pay-callback`, {
                 params: {
@@ -33,8 +28,6 @@ function SuccessPage() {
             console.log(e);
         }
     };
-
-
     const handleFinalApproval = async () => {
         if (adId1) {
             try {
@@ -46,13 +39,9 @@ function SuccessPage() {
             }
         }
     };
-
-
     useEffect(() => {
         postOrderID();
     }, []);
-
-
     return (
         <div>
             <Result

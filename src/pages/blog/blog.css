@@ -1,0 +1,131 @@
+.blog-page {
+    padding: 20px;
+    background-color: #f7f7f7;
+ 
+    .blog-header {
+      h1 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 20px;
+      }
+    }
+ 
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+ 
+    .blog-item {
+      display: flex;
+      background-color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s ease;
+ 
+      &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+ 
+      .blog-thumbnail {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 16px;
+      }
+ 
+      .blog-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+ 
+        .blog-meta {
+          font-size: 0.875rem;
+          color: #999;
+          display: flex;
+          gap: 10px;
+        }
+ 
+        .blog-title h2 {
+          font-size: 1.25rem;
+          color: #6a1b9a;
+          margin: 8px 0;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+ 
+        .blog-description {
+          font-size: 1rem;
+          color: #555;
+          margin-top: 8px;
+        }
+      }
+    }
+ 
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+     
+      button {
+        font-size: 1rem;
+        padding: 8px 16px;
+        margin: 0 8px;
+        background-color: #6a1b9a;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+ 
+        &:hover:not(:disabled) {
+          background-color: #4a0c6e;
+        }
+ 
+        &:disabled {
+          background-color: #d1d1d1;
+          cursor: not-allowed;
+        }
+      }
+ 
+      span {
+        font-size: 1rem;
+        color: #333;
+      }
+    }
+  }
+
+
+  .scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #6200ea;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+ 
+    &:hover {
+      background-color: #3700b3;
+    }
+ 
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+ 
+ 
+

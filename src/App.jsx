@@ -11,7 +11,6 @@ import Dashboard from "./components/dashboard";
 import ManageCategory from "./pages/admin/manage-category";
 import ManageStore from "./pages/admin/manage-store";
 import ManageServiceGroup from "./pages/admin/manage-store-group";
-import Test from "./pages/test";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Layout from "./components/layout";
@@ -20,6 +19,11 @@ import ADS from "./pages/Ads";
 import FateCalculator from "./pages/destiny";
 import User from "./pages/user/User";
 import SuccessPage from "./pages/success/success";
+import BlogPage from "./pages/blog/blog";
+import ManageProduct from "./pages/admin/manage-product/manageProduct";
+import ProductDetailPage from "./pages/Product/productDetail";
+
+
 
 
 function App() {
@@ -44,10 +48,6 @@ function App() {
           element: <HomePage />,
         },
         {
-          path: "test",
-          element: <Test />,
-        },
-        {
           path: "adv",
           element: <ADS />,
         },
@@ -66,15 +66,22 @@ function App() {
         {
           path: "success",
           element: <SuccessPage/>,
-        }
+        },
+        {
+          path: "blog",
+          element: <BlogPage/>,
+        },
+        {
+        path: "product",
+          element: <ProductPage />,
+        },
+        {
+          path: "/product/:id",
+          element: <ProductDetailPage />,
+        },
+        
       ],
     },
-
-    {
-      path: "test",
-      element: <Test />,
-    },
-
     {
       path: "login",
       element: <LoginPage />,
@@ -104,6 +111,10 @@ function App() {
         {
           path: "service-group",
           element: <ManageServiceGroup />,
+        },
+        {
+          path: "manage-product",
+          element: <ManageProduct />,
         },
       ],
     },

@@ -1,0 +1,118 @@
+// Colors
+$background-color: #e6f0ef; 
+$primary-color: #4b8b8b; 
+$secondary-color: #f5f7f6; 
+$text-color: #2a4d4e; 
+$highlight-color: #52b7b7; 
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $background-color;
+  padding: 30px;
+  border-radius: 20px;
+  min-height: 100vh;
+  font-family: 'Arial, sans-serif';
+}
+
+.fate-selection-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+  background-color: $secondary-color;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fate-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fate-button {
+  padding: 12px 25px;
+  background-color: $primary-color;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fate-button:hover {
+  background-color: lighten($primary-color, 10%);
+}
+
+.fate-button.active {
+  background-color: $highlight-color;
+  font-weight: bold;
+}
+
+.product-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  width: 100%;
+}
+
+.product-card {
+  width: 260px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.product-info {
+  padding: 15px;
+  color: $text-color;
+}
+
+.product-info h3 {
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+.product-info p {
+  font-size: 1rem;
+  color: darken($text-color, 15%);
+}
+
+.carousel {
+  margin-bottom: 2rem;
+}
+
+iframe {
+  border-radius: 15px;
+}

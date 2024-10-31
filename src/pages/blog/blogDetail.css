@@ -1,0 +1,190 @@
+.blog-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+  }
+  
+  
+  .blog-detail:hover {
+    background: #f0f0f0;
+  }
+  
+  
+  .back-button {
+    background-color: #800080;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+  }
+  
+  
+  .back-button:hover {
+    background-color: #aa00aa;
+  }
+  
+  
+  .blog-title {
+    font-size: 2em;
+    color: #800080;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+  }
+  
+  
+  .blog-title:hover {
+    color: #aa00aa;
+  }
+  
+  
+  .blog-author {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  
+  .blog-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #999;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  
+  .blog-date::before {
+    content: "\1F4C5";
+    margin-right: 5px;
+  }
+  
+  
+  .blog-views::before {
+    content: "\1F441";
+    margin-right: 5px;
+  }
+  
+  
+  .blog-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .blog-content {
+    font-size: 1.1em;
+    color: #444;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s forwards;
+  }
+  
+  
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  
+  .suggested-blogs {
+    margin-top: 30px;
+  }
+  
+  
+  .suggested-blogs h3 {
+    font-size: 1.5em;
+    color: #800080;
+    margin-bottom: 15px;
+  }
+  
+  
+  .suggested-blogs-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  
+  .suggested-blog-item {
+    width: calc(33.333% - 20px);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  
+  .suggested-blog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .suggested-blog-item img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  
+  .suggested-blog-item h4 {
+    font-size: 1em;
+    color: #800080;
+    margin: 5px 0;
+  }
+  
+  
+  .suggested-blog-item p {
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  
+  /* Minimalist scroll-top button style */
+  .scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #6200ea;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  
+  .scroll-top:hover {
+    background-color: #3700b3;
+    transform: scale(1.1);
+  }
+  
+  
+  /* Quick click effect for scroll-top button */
+  .scroll-top.clicked {
+    transform: scale(1.2);
+  }
+  
+  
+  
+  

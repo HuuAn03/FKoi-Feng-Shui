@@ -25,6 +25,7 @@ function Header() {
           <li><Link to="/destiny">Destiny</Link></li>
           <li><Link to="/product">Product</Link></li>
           <li><Link to="/user">User</Link></li>
+          <li><Link to="/blog">Blog</Link></li>
         </ul>
        
       </nav>

@@ -1,57 +1,87 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../config/axios";
 import "./index.scss";
 
+
 function ProductPage() {
-  const [ads, setAds] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchPublishedAds = async () => {
+
+  const fetchProducts = async (pageNumber) => {
     try {
-      const response = await api.get("/ads/my"); // Replace with the correct API endpoint for published ads
-      console.log("API response:", response.data);
-
-      if (Array.isArray(response.data.adResponses)) {
-        setAds(response.data.adResponses);
+      const response = await api.get(`/ads?page=${pageNumber}&size=8`);
+      if (Array.isArray(response.data.ads)) {
+        setProducts(response.data.ads);
+        setTotalPages(response.data.totalPages);
       } else {
-        console.log("Data is not an array");
-        setAds([]); // Fallback to prevent map issues
+        setProducts([]);
       }
     } catch (e) {
-      console.log("Error fetching ads: ", e);
-      setAds([]); // Handle error by setting ads to an empty array
+      console.log("Error fetching products: ", e);
+      setProducts([]);
     }
   };
 
   useEffect(() => {
-    fetchPublishedAds();
-  }, []);
+    fetchProducts(page);
+  }, [page]);
+
+
+  const handlePreviousPage = () => {
+    if (page > 0) setPage(page - 1);
+  };
+
+
+  const handleNextPage = () => {
+    if (page < totalPages - 1) setPage(page + 1);
+  };
+
 
   return (
-    <div>
-      <div className="ad-list">
-        {ads.map((ad) => (
-          <Ad key={ad.adId} ad={ad} />
+    <div className="product-page">
+      <h1>Products</h1>
+      <div className="product-grid">
+        {products.map((product) => (
+          <ProductCard key={product.adId} product={product} />
         ))}
+      </div>
+      <div className="pagination">
+        <button onClick={handlePreviousPage} disabled={page === 0}>
+          Previous
+        </button>
+        <span>Page {page + 1} of {totalPages}</span>
+        <button onClick={handleNextPage} disabled={page === totalPages - 1}>
+          Next
+        </button>
       </div>
     </div>
   );
 }
 
-const Ad = ({ ad }) => {
+const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/product/${product.adId}`);
+  };
+
   return (
-    <div className="ad">
-      <img src={ad.imageUrl} alt={ad.productName} />
-      <h3>{ad.productName}</h3>
-      <p>Type: {ad.productType}</p>
-      <p>{ad.description}</p>
-      <p>Price: ${ad.price}</p>
-      <p>Contact: {ad.contactInfo}</p>
-      <p>Status: {ad.status}</p>
-      <p>Posted by: {ad.userName}</p>
-      <p>Created at: {new Date(ad.createdAt).toLocaleDateString()}</p>
-      {ad.daysLeft > 0 ? <p>Days left: {ad.daysLeft}</p> : <p>Expired</p>}
+    <div className="product-card" onClick={handleClick}>
+      <img src={product.imageUrl} alt={product.productName} className="product-image" />
+      <div className="product-overlay">
+        <h3>{product.productName}</h3>
+        <p>{product.price.toLocaleString()} VND</p>
+        <button>Mua ngay</button>
+      </div>
+      <div className="new-badge">NEW</div>
     </div>
   );
 };
 
+
 export default ProductPage;
+
+
+
