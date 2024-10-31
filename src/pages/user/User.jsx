@@ -3,6 +3,7 @@ import { Form, Input, Select, DatePicker } from 'antd';
 import api from "../../config/axios";
 import Modal from './Modal';
 import './user.css';
+import { toast } from "react-toastify";
 
 const User = () => {
     const [ads, setAds] = useState([]);
@@ -12,61 +13,54 @@ const User = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    // User info state
     const [userInfo, setUserInfo] = useState({
         fullName: "",
         phoneNumber: "",
-        birthdate: "",
+        birthdate: null,
         gender: "",
-        username: "",  // Thêm trường username
-        email: ""      // Thêm trường email
     });
-
-    // Fetch ads data
     const fetchPublishedAds = async () => {
         try {
             const response = await api.get("ads/my");
             setAds(Array.isArray(response.data.ads) ? response.data.ads : []);
+            console.log(response.data.ads);
         } catch (e) {
             console.log("Error fetching ads: ", e);
             setAds([]);
         }
     };
-
-    // Tách hàm gọi API
     const updateUserInfo = async (userData) => {
         try {
             const accountId = localStorage.getItem("accountId");
             const token = localStorage.getItem("token");
-            const response = await api.put(`/api/user/${accountId}`, userData, {
+            const response = await api.put(`/user/${accountId}`, userData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("Update response:", response.data);
-            alert("User information saved successfully.");
+            setUserInfo(response.data);
+            console.log("alo");
+            toast.success("Update Profile Successfully!!!");
         } catch (error) {
             console.error("Error saving user information:", error);
         }
     };
-
-    // Handle user form submit
-    const handleUserSubmit = async (values) => {
+    const handleUserSubmit = async () => {
         const userData = {
-            fullName: values.fullName,
-            phoneNumber: values.phoneNumber,
-            birthdate: values.birthdate.format("YYYY-MM-DD"), // Định dạng ngày tháng
-            gender: values.gender,
-            
+            ...userInfo,
+            birthdate: userInfo.birthdate ? userInfo.birthdate.format("YYYY-MM-DD") : null,
         };
-        await updateUserInfo(userData); // Gọi hàm cập nhật thông tin người dùng
+        await updateUserInfo(userData);
     };
-
+    const handleInputChange = (field, value) => {
+        setUserInfo((prev) => ({
+            ...prev,
+            [field]: value,
+        }));
+    };
     useEffect(() => {
         fetchPublishedAds();
     }, []);
-
-    // Handle ad payment logic
     const handlePayment = async (adId) => {
         try {
             const choosePlan = await api.get("/plan");
@@ -77,10 +71,8 @@ const User = () => {
             console.error("Error fetching plans:", error);
         }
     };
-
     const handlePlanClick = (plan) => setSelectedPlan(plan);
     const handleConfirmClick = () => setShowConfirmation(true);
-
     const handleFinalConfirm = async () => {
         if (!selectedAdId || !selectedPlan) {
             console.error("Ad ID or Plan ID is missing!");
@@ -92,7 +84,6 @@ const User = () => {
                 adId: selectedAdId,
                 planId: selectedPlan.planId,
             };
-
             const response = await api.post(`/ads/${selectedAdId}/subscription`, requestBody);
             window.location.href = response.data;
             setShowModal(false);
@@ -101,7 +92,6 @@ const User = () => {
             console.error("Error subscribing to plan:", error);
         }
     };
-
     return (
         <div className="user-container">
             <Form
@@ -116,60 +106,54 @@ const User = () => {
                     name="fullName"
                     rules={[{ required: true, message: "Please input your full name!" }]}
                 >
-                    <div className="form-group">
-                        <span className="input-icon">
-                            <i className="uil uil-user"></i>
-                        </span>
-                        <Input placeholder="Full Name" className="form-style" />
-                    </div>
+                    <Input
+                        placeholder="Full Name"
+                        className="form-style"
+                        value={userInfo.fullName}
+                        onChange={(e) => handleInputChange('fullName', e.target.value)}
+                    />
                 </Form.Item>
 
                 <Form.Item
                     name="phoneNumber"
                     rules={[{ required: true, message: "Please input your phone number!" }]}
                 >
-                    <div className="form-group">
-                        <span className="input-icon">
-                            <i className="uil uil-phone"></i>
-                        </span>
-                        <Input placeholder="Phone Number" className="form-style" />
-                    </div>
+                    <Input
+                        placeholder="Phone Number"
+                        className="form-style"
+                        value={userInfo.phoneNumber}
+                        onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                    />
                 </Form.Item>
 
                 <Form.Item
                     name="birthdate"
                     rules={[{ required: true, message: "Please input your birthdate!" }]}
                 >
-                    <div className="form-group">
-                        <span className="input-icon">
-                            <i className="uil uil-calendar-alt"></i>
-                        </span>
-                        <DatePicker placeholder="Birthdate" className="form-style" />
-                    </div>
+                    <DatePicker
+                        placeholder="Birthdate"
+                        className="form-style"
+                        value={userInfo.birthdate}
+                        onChange={(date) => handleInputChange('birthdate', date)}
+                    />
                 </Form.Item>
-
                 <Form.Item
                     name="gender"
                     rules={[{ required: true, message: "Please select your gender!" }]}
                 >
-                    <div className="form-group">
-                        <span className="input-icon">
-                            <i className="uil uil-venus-mars"></i>
-                        </span>
-                        <Select
-                            className="ads-select"
-                            placeholder="Select type of product"
-                            options={[
-                                { value: 'MALE', label: 'Male' },
-                                { value: 'FEMALE', label: 'Female' },
-                                { value: 'OTHER', label: 'Other' },
-                            ]}
-                            allowClear
-                        />
-                    </div>
+                    <Select
+                        className="ads-select"
+                        placeholder="Select gender"
+                        value={userInfo.gender}
+                        options={[
+                            { value: 'MALE', label: 'Male' },
+                            { value: 'FEMALE', label: 'Female' },
+                            { value: 'OTHER', label: 'Other' },
+                        ]}
+                        onChange={(value) => handleInputChange('gender', value)}
+                    />
                 </Form.Item>
-
-                <button type="submit" className="form-submit-btn" onClick={handleUserSubmit}>Submit</button>
+                <button type="submit" className="form-submit-btn">Submit</button>
             </Form>
 
             <div className="ad-list-container">
@@ -186,7 +170,7 @@ const User = () => {
                     {selectedPlan ? (
                         <div className="plan-details">
                             <p>Name: {selectedPlan.name}</p>
-                            <p>Price:{selectedPlan.price}VND</p>
+                            <p>Price: {selectedPlan.price} VND</p>
                             <p>Description: {selectedPlan.description}</p>
                             <button onClick={handleConfirmClick}>Confirm</button>
                             {showConfirmation && (
@@ -200,7 +184,6 @@ const User = () => {
                         <p>Please select a plan.</p>
                     )}
                 </div>
-
                 <div className="modal-right">
                     <h3>Available Plans</h3>
                     <ul>
@@ -210,7 +193,7 @@ const User = () => {
                                 className={`plan-item ${selectedPlan && selectedPlan.planId === p.planId ? 'selected' : ''}`}
                                 onClick={() => handlePlanClick(p)}
                             >
-                                {p.name} - {p.price}VND
+                                {p.name} - {p.price} VND
                             </li>
                         ))}
                     </ul>
@@ -219,7 +202,6 @@ const User = () => {
         </div>
     );
 };
-
 const Ad = ({ ad, handlePayment }) => {
     return (
         <div className="ad">
@@ -234,5 +216,4 @@ const Ad = ({ ad, handlePayment }) => {
         </div>
     );
 };
-
 export default User;
