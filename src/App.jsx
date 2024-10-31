@@ -22,6 +22,7 @@ import SuccessPage from "./pages/success/success";
 import BlogPage from "./pages/blog/blog";
 import ManageProduct from "./pages/admin/manage-product/manageProduct";
 import ProductDetailPage from "./pages/Product/productDetail";
+import BlogDetail from "./pages/blog/blogDetail";
 
 
 
@@ -71,6 +72,12 @@ function App() {
           path: "blog",
           element: <BlogPage/>,
         },
+
+        {
+          path: "blog/:blogId",
+          element: <BlogDetail/>,
+        },
+
         {
         path: "product",
           element: <ProductPage />,
@@ -79,17 +86,18 @@ function App() {
           path: "/product/:id",
           element: <ProductDetailPage />,
         },
+
+        {
+          path: "login",
+          element: <LoginPage />,
+        },
+    
+        {
+          path: "register",
+          element: <RegisterPage />,
+        },
         
       ],
-    },
-    {
-      path: "login",
-      element: <LoginPage />,
-    },
-
-    {
-      path: "register",
-      element: <RegisterPage />,
     },
 
     {

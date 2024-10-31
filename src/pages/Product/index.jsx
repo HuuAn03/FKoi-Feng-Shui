@@ -12,7 +12,7 @@ function ProductPage() {
 
   const fetchProducts = async (pageNumber) => {
     try {
-      const response = await api.get(`/ads?page=${pageNumber}&size=8`);
+      const response = await api.get(`/ads/active?page=${pageNumber}&size=8`);
       if (Array.isArray(response.data.ads)) {
         setProducts(response.data.ads);
         setTotalPages(response.data.totalPages);
