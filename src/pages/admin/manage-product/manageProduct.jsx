@@ -5,22 +5,39 @@ import './ManageProduct.css';
 function ManageProduct() {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  
+
   useEffect(() => {
     const fetchAds = async () => {
       try {
         const response = await api.get('/ads/all');
         setAds(response.data.ads);
       } catch (error) {
-        setError('Failed to load ads');
+        
       } finally {
         setLoading(false);
       }
     };
     fetchAds();
   }, []);
-    if (loading) return <div className="loading">Loading...</div>;
-    if (error) return <div className="error">{error}</div>;
+
+  const handleApprove = async (adId) => {
+    try {
+      const response = await api.put(`ads/${adId}/status?status=APPROVED`);
+      setAds((prevAds) =>
+        prevAds.map((ad) =>
+          ad.adId === adId ? { ...ad, status: 'APPROVED' } : ad
+        )
+      );
+      
+    } catch (error) {
+      
+    }
+  };
+
+  if (loading) return <div className="loading">Loading...</div>;
+  
+
   return (
     <div>
       <h1>Manage Products</h1>
@@ -47,7 +64,12 @@ function ManageProduct() {
                 <td>{ad.price}</td>
                 <td>{ad.status}</td>
                 <td>{ad.daysLeft}</td>
-                <td>{ad.contactInfo}</td>               
+                <td>{ad.contactInfo}</td>
+                <td>
+                  {ad.status === 'PENDING' && (
+                    <button onClick={() => handleApprove(ad.adId)}>Approve</button>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -58,4 +80,5 @@ function ManageProduct() {
     </div>
   );
 }
+
 export default ManageProduct;
