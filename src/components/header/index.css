@@ -1,106 +1,126 @@
-/* Header Styling */
 .fengshui-header {
-    background-color: #8cd1ce;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between; /* Distributes space between child elements */
-    align-items: center;
-    border-bottom: 2px solid #ccc;
-    height: 80px;
-  }
-  
-  /* Logo Section */
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-image {
-    width: 50px; /* Adjust logo size */
-    margin-right: 10px;
-  }
-  
-  .logo-text {
-    font-size: 26px;
-    font-weight: bold;
-    color: #2d2d2d;
-    font-family: 'Bookman', serif;;
-  }
-  
-  /* Navigation Styling */
-  .navigation {
-    display: flex;
-    flex-grow: 1; /* Allows the nav section to expand */
-    justify-content: center; /* Center the navigation links */
-    align-items: center; /* Align the links vertically */
-  }
-  
-  .navigation ul {
-    list-style: none;
-    display: flex;
-    gap: 180px; /* Space between navigation items */
-    margin: 0;
-    padding: 0; /* Remove default padding */
-  }
-  
-  .navigation ul li {
-    font-size: 24px;
-    font-weight: 500;
-  }
-  
-  .navigation ul li a {
-    text-decoration: none;
-    color: #2d2d2d;
-    transition: color 0.3s ease;
-  }
-  
-  .navigation ul li a:hover {
-    color: #ff7f7f; /* Color on hover */
-  }
-  
-  /* Cart and Login Section */
-  .login-cart {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .login-button {
-    background: linear-gradient(45deg, #ff7f7f, #ff4b4b);
-    color: white;
-    padding: 12px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background: linear-gradient(45deg, #ff4b4b, #ff7f7f);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-3px);
-  }
-  
-  .login-button:active {
-    transform: translateY(0);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logout-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    text-transform: uppercase;
-  }
-  
-  .logout-button:hover {
-    background-color: darkred;
-  }
+  background-color: #3b6978;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100vw - 20px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-image {
+  width: 45px;
+  margin-right: 12px;
+  border-radius: 50%;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: 'Georgia', serif;
+}
+
+.navigation {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation ul {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation ul li {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.navigation ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.navigation ul li a:hover {
+  color: #ffbc42;
+}
+
+.login-cart {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 35px;
+}
+
+.profile-button {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  color: #3b6978;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-button:hover {
+  background-color: #f1f1f1;
+  transform: translateY(-1px);
+}
+
+.profile-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.login-button,
+.logout-button {
+  background: #ffbc42;
+  color: #3b6978;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover,
+.logout-button:hover {
+  background-color: #f1a10a;
+  transform: translateY(-2px);
+}
+
+.logout-button {
+  background: #e63946;
+  color: white;
+}
+
+.logout-button:hover {
+  background: #d62828;
+}
