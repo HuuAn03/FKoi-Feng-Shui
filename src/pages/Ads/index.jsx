@@ -8,7 +8,7 @@ import './Ads.css';
 function ADS() {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
-    const [uploadedImageUrl, setUploadedImageUrl] = useState(''); // State to store the image URL
+    const [uploadedImageUrl, setUploadedImageUrl] = useState(''); 
 
     // Handle form submission
     const handleAds = async (values) => {
@@ -27,7 +27,7 @@ function ADS() {
             });          
             const { imageUrl } = response.data;             
             if (imageUrl) {
-                setUploadedImageUrl(imageUrl); // Store the image URL
+                setUploadedImageUrl(imageUrl); 
                 toast.success("Your advertisement has been queued");
             }
         } catch (e) {

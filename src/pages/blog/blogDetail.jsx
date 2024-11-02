@@ -18,7 +18,7 @@ function BlogDetail() {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.get(`/blogs/${blogId}`);
+      const response = await api.get(`/blogs/get/${blogId}`);
       setBlog(response.data);
       fetchSuggestedBlogs(response.data.categoryName, response.data.blogId);
     } catch (error) {
@@ -32,7 +32,7 @@ function BlogDetail() {
 
   const fetchSuggestedBlogs = async (categoryId, currentBlogId) => {
     try {
-      const response = await api.get(`/blogs/category/${categoryId}?page=0&size=3`);
+      const response = await api.get(`/blogs/category/${categoryId}?page=0&size=4`);
       const filteredBlogs = response.data.blogs.filter((b) => b.blogId !== currentBlogId);
       setSuggestedBlogs(filteredBlogs);
     } catch (error) {
@@ -64,8 +64,6 @@ function BlogDetail() {
     setTimeout(() => scrollButton.classList.remove('clicked'), 150);
   };
  
-
-
   const handleBack = () => {
     navigate('/blog');
   };

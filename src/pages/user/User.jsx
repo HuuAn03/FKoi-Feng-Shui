@@ -96,7 +96,7 @@ const User = () => {
         <div className="user-container">
             <Form
                 name="userForm"
-                className="auth-form"
+                
                 labelCol={{ span: 24 }}
                 onFinish={handleUserSubmit}
                 initialValues={userInfo}

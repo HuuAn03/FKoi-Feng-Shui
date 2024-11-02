@@ -17,7 +17,7 @@ function getItem(label, key, icon) {
 const items = [
   getItem("Manage Category", "category", <PieChartOutlined />),
   getItem("Manage Advertisement", "store", <PieChartOutlined />),
-  getItem("Manage Service Group", "service-group", <PieChartOutlined />),
+  getItem("Manage Blog", "service-group", <PieChartOutlined />),
   getItem("Manage Product", "manage-product", <PieChartOutlined />),
 ];
 
@@ -60,7 +60,7 @@ const Dashboard = () => {
         </div>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+       
         <Content style={{ margin: "0 16px" }}>
           <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
             <Outlet />
@@ -71,5 +71,4 @@ const Dashboard = () => {
     </Layout>
   );
 };
-
 export default Dashboard;
