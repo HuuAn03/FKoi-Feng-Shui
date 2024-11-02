@@ -10,33 +10,37 @@ function ManageServiceGroup() {
     const [thumbnailFileList, setThumbnailFileList] = useState([]);
     const [imageFileList, setImageFileList] = useState([]);
 
-    // Handle form submission
-    const handleBlogPost = async (values) => {
-        const blogData = {
-            title: values.title,
-            thumbnail: thumbnailFileList.length > 0 ? thumbnailFileList[0].name : '', // Lấy tên tệp thumbnail
-            content: values.content,
-            shortDescription: values.shortDescription,
-            categoryName: values.categoryName,
-            tags: values.tags.split(',').map(tag => tag.trim()), // Chuyển đổi tags từ chuỗi thành mảng và loại bỏ khoảng trắng
-        };
+const handleBlogPost = async (values) => {
+    const formData = new FormData();
+    
+    formData.append("title", values.title);
+    formData.append("content", values.content);
+    formData.append("shortDescription", values.shortDescription);
+    formData.append("categoryName", values.categoryName);
+    formData.append("tags", JSON.stringify(values.tags.split(',').map(tag => tag.trim())));
+    
+    if (thumbnailFileList.length > 0) {
+        formData.append("thumbnail", thumbnailFileList[0].originFileObj);
+    }
+    if (imageFileList.length > 0) {
+        formData.append("imageFile", imageFileList[0].originFileObj);
+    }
 
-        // Append imageFile if it exists
-        if (imageFileList.length > 0) {
-            const imageFile = imageFileList[0]; // Lấy tệp đầu tiên từ danh sách
-            blogData.imageFile = imageFile.name; // Hoặc bạn có thể lấy URL nếu có
-        }
+    try {
+        const response = await api.post("/blogs/post", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        message.success("Blog post created successfully");
+        form.resetFields();
+        setThumbnailFileList([]);
+        setImageFileList([]);
+    } catch (error) {
+        message.error("Failed to create blog post. Please check your inputs.");
+    }
+};
 
-        try {
-            const response = await api.post("/blogs/post", blogData);
-            message.success("Blog post created successfully");
-            form.resetFields(); // Reset các trường sau khi thành công
-            setThumbnailFileList([]); // Reset file list cho thumbnail
-            setImageFileList([]); // Reset file list cho imageFile
-        } catch (error) {
-            message.error("Failed to create blog post. Please check your inputs.");
-        }
-    };
 
     const handleThumbnailChange = ({ fileList }) => {
         setThumbnailFileList(fileList);
@@ -94,7 +98,6 @@ function ManageServiceGroup() {
                     rules={[{ required: true, message: "Please select a category" }]}
                 >
                     <Select placeholder="Select Category">
-                        {/* Thay thế với các tùy chọn thực tế */}
                         <Select.Option value="category1">Category 1</Select.Option>
                         <Select.Option value="category2">Category 2</Select.Option>
                     </Select>
