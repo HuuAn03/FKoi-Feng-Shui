@@ -1,4 +1,4 @@
-/* Container for user info and ad list, aligning them side by side */
+/* Container chính */
 .user-container {
   display: flex;
   justify-content: space-between;
@@ -8,46 +8,61 @@
   margin: 0 auto;
 }
 
-/* Styling for the user info form on the left */
+/* Styling cho form thông tin cá nhân */
 .user-info {
   flex: 1;
-  background-color: #f0f0f5;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling individual form inputs */
 .user-info h3 {
   text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Styling các input và select */
+.user-info .form-style,
+.user-info .ads-select,
+.user-info .ant-picker {
+  width: 100%;
+  padding: 12px;
   margin-bottom: 20px;
-}
-
-.user-info input,
-.user-info select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
   box-sizing: border-box;
-}
-
-.user-info button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
+  transition: border-color 0.3s ease-in-out;
 }
 
-.user-info button:hover {
+.user-info .form-style:focus,
+.user-info .ads-select:focus,
+.user-info .ant-picker-focused {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* Styling cho nút submit */
+.user-info .form-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.user-info .form-submit-btn:hover {
   background-color: #45a049;
 }
+
 
 /* Styling for the ad list on the right */
 .ad-list-container {

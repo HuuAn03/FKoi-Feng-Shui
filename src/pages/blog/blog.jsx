@@ -18,11 +18,12 @@ function BlogPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.get('/blogs', {
+      const response = await api.get('/blogs/get', {
         params: {
+          blogStatus: 'APPROVED',
           page: pageNumber,
-          size: 8,
-          blogStatus: 'APPROVED'
+          size: 8
+          
         }
       });
       const { blogs, totalPages } = response.data;

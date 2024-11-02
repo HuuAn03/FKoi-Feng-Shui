@@ -1,0 +1,43 @@
+.blog-post-container {
+  max-width: 800px; /* Chiều rộng tối đa của container */
+  margin: 0 auto; /* Căn giữa container */
+  padding: 20px; /* Thêm khoảng đệm bên trong */
+  background-color: #f9f9f9; /* Màu nền nhẹ cho container */
+  border-radius: 8px; /* Bo tròn góc của container */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng cho container */
+}
+
+.blog-post-form {
+  margin-top: 20px; /* Khoảng cách giữa tiêu đề và form */
+}
+
+.blog-post-form .ant-form-item {
+  margin-bottom: 16px; /* Khoảng cách giữa các ô nhập liệu */
+}
+
+.blog-post-form .ant-input, 
+.blog-post-form .ant-select-selector,
+.blog-post-form .ant-input-textarea {
+  border-radius: 4px; /* Bo tròn góc các ô nhập liệu */
+}
+
+.blog-submit-btn {
+  background-color: #1890ff; /* Màu nền cho nút submit */
+  border-color: #1890ff; /* Màu viền cho nút submit */
+}
+
+.blog-submit-btn:hover {
+  background-color: #40a9ff; /* Màu nền khi hover vào nút */
+  border-color: #40a9ff; /* Màu viền khi hover vào nút */
+}
+
+.uploaded-image-card {
+  margin-top: 20px; /* Khoảng cách giữa form và ảnh đã tải lên */
+  text-align: center; /* Căn giữa nội dung trong card */
+}
+
+.uploaded-image-card img {
+  max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng card */
+  height: auto; /* Tự động điều chỉnh chiều cao ảnh */
+  border-radius: 4px; /* Bo tròn góc ảnh */
+}

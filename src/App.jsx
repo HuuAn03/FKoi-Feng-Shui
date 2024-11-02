@@ -25,8 +25,6 @@ import ProductDetailPage from "./pages/Product/productDetail";
 import BlogDetail from "./pages/blog/blogDetail";
 
 
-
-
 function App() {
   const ProtectRouteAuth = ({ children }) => {
     const user = useSelector((store) => store.user);
@@ -72,12 +70,10 @@ function App() {
           path: "blog",
           element: <BlogPage/>,
         },
-
         {
           path: "blog/:blogId",
           element: <BlogDetail/>,
         },
-
         {
         path: "product",
           element: <ProductPage />,
@@ -86,18 +82,17 @@ function App() {
           path: "/product/:id",
           element: <ProductDetailPage />,
         },
-
-        {
-          path: "login",
-          element: <LoginPage />,
-        },
-    
-        {
-          path: "register",
-          element: <RegisterPage />,
-        },
         
       ],
+    },
+    {
+      path: "login",
+      element: <LoginPage />,
+    },
+
+    {
+      path: "register",
+      element: <RegisterPage />,
     },
 
     {

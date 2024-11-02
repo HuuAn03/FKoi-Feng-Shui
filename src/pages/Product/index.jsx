@@ -3,12 +3,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../../config/axios";
 import "./index.scss";
 
-
 function ProductPage() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-
 
   const fetchProducts = async (pageNumber) => {
     try {
@@ -79,7 +77,6 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
-
 
 export default ProductPage;
 
