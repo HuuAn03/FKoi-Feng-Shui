@@ -32,13 +32,17 @@ function BlogDetail() {
 
   const fetchSuggestedBlogs = async (categoryId, currentBlogId) => {
     try {
-      const response = await api.get(`/blogs/category/${categoryId}?page=0&size=4`);
+      const response = await api.get(`/blogs/category/${categoryId}`);
       const filteredBlogs = response.data.blogs.filter((b) => b.blogId !== currentBlogId);
-      setSuggestedBlogs(filteredBlogs);
+  
+      // Lấy ngẫu nhiên 4 bài từ danh sách blog cùng category
+      const randomBlogs = filteredBlogs.sort(() => 0.5 - Math.random()).slice(0, 3);
+      setSuggestedBlogs(randomBlogs);
     } catch (error) {
       console.error('Error fetching suggested blogs:', error);
     }
   };
+  
 
 
   useEffect(() => {
