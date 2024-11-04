@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import { PieChartOutlined } from "@ant-design/icons";
-
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 function getItem(label, key, icon) {
   return {
@@ -27,18 +26,16 @@ const Dashboard = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
-  // Check for token in useEffect
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirect to login if token is missing
+      navigate("/login"); 
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token from storage
-    navigate("/login"); // Redirect to login page
+    localStorage.removeItem("token"); 
+    navigate("/login"); 
   };
 
   return (
@@ -60,13 +57,11 @@ const Dashboard = () => {
         </div>
       </Sider>
       <Layout>
-       
         <Content style={{ margin: "0 16px" }}>
           <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
             <Outlet />
           </div>
-        </Content>
-        
+        </Content>    
       </Layout>
     </Layout>
   );

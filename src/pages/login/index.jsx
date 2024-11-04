@@ -108,17 +108,11 @@ function LoginPage() {
               Don't have an account? Register new account
             </Link>
           </div>
-
-
-          {/* Forgot Password Link */}
           <div style={{ marginTop: "10px", textAlign: "center" }}>
             <Button type="link" onClick={() => setIsForgotModalVisible(true)}>
               Forgot Password?
             </Button>
           </div>
-
-
-          {/* Forgot Password Modal */}
           <Modal
             title="Forgot Password"
             visible={isForgotModalVisible}
@@ -140,9 +134,6 @@ function LoginPage() {
               </Button>
             </Form>
           </Modal>
-
-
-          {/* Google Login Button */}
           <div style={{ marginTop: "20px", textAlign: "center" }}>
             <GoogleLogin onSuccess={handleGoogleLogin} onError={() => toast.error("Google login failed.")} />
           </div>
@@ -151,8 +142,6 @@ function LoginPage() {
     </GoogleOAuthProvider>
   );
 }
-
-
 export default LoginPage;
 
 

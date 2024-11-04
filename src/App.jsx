@@ -23,6 +23,7 @@ import BlogPage from "./pages/blog/blog";
 import ManageProduct from "./pages/admin/manage-product/manageProduct";
 import ProductDetailPage from "./pages/Product/productDetail";
 import BlogDetail from "./pages/blog/blogDetail";
+import BlogList from "./pages/admin/manage-store-group/blogList";
 
 
 function App() {
@@ -112,12 +113,16 @@ function App() {
           element: <ManageStore />,
         },
         {
-          path: "service-group",
+          path: "manage-blog",
           element: <ManageServiceGroup />,
         },
         {
           path: "manage-product",
           element: <ManageProduct />,
+        },
+        {
+          path: "service-group",
+          element: <BlogList />,
         },
       ],
     },
