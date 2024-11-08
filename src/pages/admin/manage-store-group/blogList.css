@@ -1,0 +1,208 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.blog-list {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #4a4a4a;
+}
+
+/* Section styles */
+.blogs-section {
+  margin-bottom: 30px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.blogs-section h2 {
+  font-size: 1.8em;
+  color: #555;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 5px;
+}
+
+
+.pending-section {
+  background-color: #fff3cd; 
+}
+
+.approved-section {
+  background-color: #d4edda; 
+}
+
+.rejected-section {
+  background-color: #f8d7da; 
+}
+
+
+.blogs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.blog-card {
+  background: #f7f7f7;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+.blog-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.blog-content {
+  padding: 15px;
+}
+
+.blog-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.blog-description {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.blog-meta {
+  font-size: 0.8em;
+  color: #999;
+  display: flex;
+  justify-content: space-between;
+}
+
+.read-more-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.read-more-btn:hover {
+  background-color: #0056b3;
+}
+
+
+.loading, .error {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ff4d4d; 
+  margin: 20px 0;
+}
+
+
+.no-blogs {
+  text-align: center;
+  font-size: 1.2em;
+  color: #999;
+}
+.post-blog-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.post-blog-btn:hover {
+  background-color: #0056b3;
+}
+
+.post-blog-btn:active {
+  transform: scale(0.95);
+}
+
+.post-blog-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.status-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.approve-btn, .reject-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Approve button styling */
+.approve-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #45A049;
+}
+
+/* Reject button styling */
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.reject-btn:hover {
+  background-color: #d32f2f;
+}
+.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #ff1a1a;
+}

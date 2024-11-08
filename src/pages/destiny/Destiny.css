@@ -1,16 +1,14 @@
-/* Destiny.css */
-
 .auth-template {
   padding: 20px;
   background: linear-gradient(135deg, #f0f4ff, #e4e8fe);
 }
+
 
 .form-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
-
 .input-card,
 .result-card {
   flex: 1;
@@ -23,10 +21,12 @@
   transition: transform 0.3s ease;
 }
 
+
 .input-card:hover,
 .result-card:hover {
   transform: scale(1.02);
 }
+
 
 .transparent-container {
   background: rgba(255, 255, 255, 0.8);
@@ -34,10 +34,12 @@
   border-radius: 8px;
 }
 
+
 .table-title {
   font-size: 20px;
   font-weight: bold;
 }
+
 
 .ant-table-thead > tr > th {
   font-size: 18px;
@@ -45,20 +47,47 @@
   color: #333;
 }
 
+
 .ant-table-tbody > tr > td {
   font-size: 16px;
   font-weight: 500;
 }
+
 
 .table-cell-content {
   font-size: 16px;
   font-weight: 600;
 }
 
+
 .submit-button {
   width: 100%;
 }
 
+
 .consult-button {
   margin-top: 10px;
 }
+
+
+.compatibility-circle {
+  position: relative;
+  display: inline-flex;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: conic-gradient(#4CAF50 var(--percentage), #ddd var(--percentage));
+  justify-content: center;
+  align-items: center;
+}
+
+
+.compatibility-circle span {
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+

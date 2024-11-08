@@ -1,114 +1,112 @@
-/* Container chính */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
 .user-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  background-color: #f5f5f5; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }
 
-/* Styling cho form thông tin cá nhân */
-.user-info {
-  flex: 1;
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.user-info h3 {
-  text-align: center;
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 30px;
-}
-
-/* Styling các input và select */
-.user-info .form-style,
-.user-info .ads-select,
-.user-info .ant-picker {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-size: 16px;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.user-info .form-style:focus,
-.user-info .ads-select:focus,
-.user-info .ant-picker-focused {
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-}
-
-/* Styling cho nút submit */
-.user-info .form-submit-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.user-info .form-submit-btn:hover {
-  background-color: #45a049;
-}
-
-
-/* Styling for the ad list on the right */
-.ad-list-container {
-  flex: 2;
-}
-
-.ad-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-/* Individual ad card styling */
-.ad {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
-}
-
-/* Styling for images in the ad */
-.ad img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 15px;
-}
-
-/* Styling for the pay button */
-.ad button {
-  background-color: #4CAF50; /* Green */
+.show-profile-btn {
+  background-color: #007bff; 
   color: white;
-  padding: 10px 15px;
   border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
   cursor: pointer;
-  margin-top: 10px;
-  border-radius: 5px;
-  font-size: 14px;
+  margin: 10px 0 20px 0; 
   transition: background-color 0.3s;
 }
 
-/* Hover effect for the button */
-.ad button:hover {
-  background-color: #45a049;
+.show-profile-btn:hover {
+  background-color: #0056b3; 
+}
+
+/* Form styling */
+.form-style {
+  width: 100%; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 10px;
+  margin-bottom: 15px; 
+}
+
+.form-submit-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-submit-btn:hover {
+  background-color: #218838; 
+}
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse; 
+  margin-top: 20px; 
+}
+
+.ad-table th, .ad-table td {
+  border: 1px solid #ddd; 
+  padding: 8px; 
+  text-align: left;
+}
+
+.ad-table th {
+  background-color: #007bff; 
+  color: white;
+}
+
+.ad-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+.ad-image {
+  max-width: 100px; 
+  max-height: 100px; 
+  object-fit: cover;
+  border-radius: 4px; 
+}
+
+.user-container {
+  display: flex;
+}
+
+.custom-sidebar {
+  width: 200px;
+  background-color: #f0f2f5;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-btn {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar-btn:hover {
+  background-color: #40a9ff;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
 }

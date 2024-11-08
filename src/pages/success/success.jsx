@@ -22,7 +22,6 @@ function SuccessPage() {
             });
             console.log(response.data);
             setMessage(response.data.message);
-            setRedirectUrl(response.data.redirectUrl);
             setAdId1(response.data.adId);
         } catch (e) {
             console.log(e);
@@ -33,9 +32,19 @@ function SuccessPage() {
             try {
                 const response = await api.put(`/ads/${adId1}/approval`);
                 console.log(response.data);
-                navigate(redirectUrl);
+                navigate("/user");
             } catch (e) {
                 console.log(e);
+            }
+        }
+    };
+    const handleViewAds = async () => {
+        if (adId1) {
+            try {
+                const response = await api.get(`/ads/id/${adId1}`);
+                navigate(`/product/${adId1}`);
+            } catch (error) {
+                console.log(error);
             }
         }
     };
@@ -52,7 +61,7 @@ function SuccessPage() {
                     <Button type="primary" key="approve" onClick={handleFinalApproval}>
                         Public quảng cáo đó
                     </Button>,
-                    <Button type="primary" key="redirect" onClick={() => navigate(redirectUrl)}>
+                    <Button type="primary" key="redirect" onClick={handleViewAds}>
                         Xem lại quảng cáo
                     </Button>,
                 ]}
@@ -60,6 +69,4 @@ function SuccessPage() {
         </div>
     );
 }
-
-
 export default SuccessPage;

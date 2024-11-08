@@ -9,7 +9,6 @@ function ManageCategory() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState([]);
 
-  //GET
   const fetchData = async () => {
     try {
       const response = await api.get("category");
@@ -26,10 +25,8 @@ function ManageCategory() {
       setLoading(true);
 
       if (values.id) {
-        // => update
         const response = await api.put(`category/${values.id}`, values);
       } else {
-        // => create
         const response = await api.post("category", values);
       }
       toast.success("Successfully saved!");

@@ -14,6 +14,13 @@ $highlight-color: #52b7b7;
   border-radius: 20px;
   min-height: 100vh;
   font-family: 'Arial, sans-serif';
+  overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .fate-selection-display {
@@ -27,7 +34,19 @@ $highlight-color: #52b7b7;
   background-color: $secondary-color;
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.5s ease, transform 0.3s ease;
+  animation: slideUp 1.2s ease-out;
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.fate-selection-display:hover {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  transform: scale(1.01);
 }
 
 .fate-selection {
@@ -37,7 +56,8 @@ $highlight-color: #52b7b7;
   background-color: #ffffff;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1.3s ease-out;
 }
 
 .fate-button {
@@ -48,16 +68,20 @@ $highlight-color: #52b7b7;
   color: #ffffff;
   font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .fate-button:hover {
   background-color: lighten($primary-color, 10%);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px) scale(1.05);
 }
 
 .fate-button.active {
   background-color: $highlight-color;
   font-weight: bold;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .product-display {
@@ -66,6 +90,7 @@ $highlight-color: #52b7b7;
   gap: 25px;
   justify-content: center;
   width: 100%;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
 .product-card {
@@ -73,17 +98,24 @@ $highlight-color: #52b7b7;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  animation: zoomIn 0.8s ease;
+}
+
+@keyframes zoomIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .product-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 .product-image {
@@ -92,11 +124,17 @@ $highlight-color: #52b7b7;
   object-fit: cover;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
 }
 
 .product-info {
   padding: 15px;
   color: $text-color;
+  transition: opacity 0.3s ease;
 }
 
 .product-info h3 {
@@ -111,8 +149,15 @@ $highlight-color: #52b7b7;
 
 .carousel {
   margin-bottom: 2rem;
+  animation: fadeIn 1.2s ease-out;
 }
 
 iframe {
   border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.4s ease;
+}
+
+iframe:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }

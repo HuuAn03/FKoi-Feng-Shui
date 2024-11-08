@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Navigate,
   RouterProvider,
@@ -23,6 +23,10 @@ import BlogPage from "./pages/blog/blog";
 import ManageProduct from "./pages/admin/manage-product/manageProduct";
 import ProductDetailPage from "./pages/Product/productDetail";
 import BlogDetail from "./pages/blog/blogDetail";
+import BlogList from "./pages/admin/manage-store-group/blogList";
+import requestPermission from "./config/notificarion";
+import PasswordPage from "./pages/Password";
+import UserManagement from "./pages/admin/manage-user/user-management";
 
 
 function App() {
@@ -37,6 +41,9 @@ function App() {
     return <Navigate to={"auth/login"} />;
   };
 
+  useEffect(()=>{
+    requestPermission();
+  },[]);
   const router = createBrowserRouter([
     {
       path: "",
@@ -82,18 +89,22 @@ function App() {
           path: "/product/:id",
           element: <ProductDetailPage />,
         },
-        
+        {
+          path: "login",
+          element: <LoginPage />,
+        },
+    
+        {
+          path: "register",
+          element: <RegisterPage />,
+        },
+        {
+          path: "password/reset",
+          element: <PasswordPage />,
+        },
       ],
     },
-    {
-      path: "login",
-      element: <LoginPage />,
-    },
-
-    {
-      path: "register",
-      element: <RegisterPage />,
-    },
+    
 
     {
       path: "dashboard",
@@ -112,12 +123,20 @@ function App() {
           element: <ManageStore />,
         },
         {
-          path: "service-group",
+          path: "manage-blog",
           element: <ManageServiceGroup />,
         },
         {
           path: "manage-product",
           element: <ManageProduct />,
+        },
+        {
+          path: "service-group",
+          element: <BlogList />,
+        },
+        {
+          path: "manage-users",
+          element: <UserManagement />,
         },
       ],
     },

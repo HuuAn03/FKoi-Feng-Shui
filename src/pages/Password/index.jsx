@@ -14,8 +14,6 @@ function PasswordPage() {
 
   // Lấy token từ URL
   const token = searchParams.get("token");
-
-
   const handlePasswordReset = async (values) => {
     if (values.newPassword !== values.confirmPassword) {
       toast.error("Passwords do not match!");
@@ -36,33 +34,19 @@ function PasswordPage() {
     }
   };
 
-
   return (
     <div className="reset-password-container">
       <h2>Reset Password</h2>
       <Form onFinish={handlePasswordReset} className="reset-password-form">
         <Form.Item
           name="newPassword"
-          rules={[
-            { required: true, message: "Please input your new password!" },
-            { min: 6, message: "Password must be at least 6 characters long!" },
-          ]}
+          
         >
           <Input.Password placeholder="New Password" />
         </Form.Item>
         <Form.Item
           name="confirmPassword"
-          rules={[
-            { required: true, message: "Please confirm your new password!" },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("newPassword") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error("Passwords do not match!"));
-              },
-            }),
-          ]}
+          
         >
           <Input.Password placeholder="Confirm New Password" />
         </Form.Item>

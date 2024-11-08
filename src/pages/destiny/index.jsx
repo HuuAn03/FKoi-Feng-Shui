@@ -5,7 +5,9 @@ import api from "../../config/axios";
 import { motion } from "framer-motion";
 import "./Destiny.css";
 
+
 const { Title, Paragraph } = Typography;
+
 
 const Destiny = () => {
   const [loading, setLoading] = useState(false);
@@ -13,12 +15,12 @@ const Destiny = () => {
   const [consultLoading, setConsultLoading] = useState(false);
   const [consultData, setConsultData] = useState(null);
 
+
   const calculateFate = async (values) => {
     try {
       setLoading(true);
       const birthdate = values.birthdate.format("YYYY-MM-DD");
       const response = await api.get(`fate/calculate?birthdate=${birthdate}`);
-
       const fateResponse = {
         fateId: response.data.fateId,
         fateType: response.data.fateType,
@@ -27,6 +29,7 @@ const Destiny = () => {
         incompatibleColors: response.data.incompatibleColors,
       };
 
+
       setFateType(fateResponse);
     } catch (error) {
       toast.error("Failed to calculate fate");
@@ -34,6 +37,7 @@ const Destiny = () => {
       setLoading(false);
     }
   };
+
 
   const handleConsult = async () => {
     try {
@@ -46,6 +50,7 @@ const Destiny = () => {
       setConsultLoading(false);
     }
   };
+
 
   const renderColors = (colors) => {
     return colors.map((color, index) => (
@@ -64,11 +69,12 @@ const Destiny = () => {
     ));
   };
 
+
   const renderKoiTable = () => {
     if (!consultData || !consultData.koiRecommendations || consultData.koiRecommendations.length === 0) {
       return null;
     }
-
+ 
     const koiColumns = [
       {
         title: "Image",
@@ -102,7 +108,23 @@ const Destiny = () => {
         width: 150,
         align: "right",
       },
+      {
+        title: "Compatibility Rate",
+        dataIndex: "compatibilityRate",
+        key: "compatibilityRate",
+        render: (rate) => (
+          <div
+            className="compatibility-circle"
+            style={{ "--percentage": `${rate}%` }}
+          >
+            <span>{rate}%</span>
+          </div>
+        ),
+        width: 150,
+        align: "center",
+      }      
     ];
+ 
     const koiDataSource = consultData.koiRecommendations.map((koi) => ({
       key: koi.koi.koiId,
       image: koi.koi.imageUrl,
@@ -110,8 +132,9 @@ const Destiny = () => {
       description: koi.koi.description,
       size: koi.recommendSize,
       price: koi.koi.marketValue,
+      compatibilityRate: koi.compatibilityRate,
     }));
-
+ 
     return (
       <Table
         dataSource={koiDataSource}
@@ -124,12 +147,12 @@ const Destiny = () => {
       />
     );
   };
-
+ 
   const renderPondTable = () => {
     if (!consultData || !consultData.pondRecommendations || consultData.pondRecommendations.length === 0) {
       return null;
     }
-
+ 
     const pondColumns = [
       {
         title: "Placement",
@@ -152,15 +175,31 @@ const Destiny = () => {
         width: 500,
         align: "center",
       },
+      {
+        title: "Compatibility Rate",
+        dataIndex: "compatibilityRate",
+        key: "compatibilityRate",
+        render: (rate) => (
+          <div
+            className="compatibility-circle"
+            style={{ "--percentage": `${rate}%` }}
+          >
+            <span>{rate}%</span>
+          </div>
+        ),
+        width: 150,
+        align: "center",
+      }      
     ];
-
+ 
     const pondDataSource = consultData.pondRecommendations.map((pond) => ({
       key: pond.pond.pondFeatureId,
       placement: pond.pond.placement,
       direction: pond.pond.direction,
       description: pond.pond.description,
+      compatibilityRate: pond.compatibilityRate,
     }));
-
+ 
     return (
       <Table
         dataSource={pondDataSource}
@@ -173,11 +212,14 @@ const Destiny = () => {
       />
     );
   };
+ 
+
 
   const renderProductTable = () => {
     if (!consultData || !consultData.productRecommendations || consultData.productRecommendations.length === 0) {
       return null;
     }
+
 
     const productColumns = [
       {
@@ -212,6 +254,7 @@ const Destiny = () => {
       },
     ];
 
+
     const productDataSource = consultData.productRecommendations.map((product) => ({
       key: product.product.productId,
       image: product.product.imageUrl,
@@ -219,6 +262,7 @@ const Destiny = () => {
       description: product.product.description,
       price: product.product.price,
     }));
+
 
     return (
       <Table
@@ -232,6 +276,7 @@ const Destiny = () => {
       />
     );
   };
+
 
   return (
     <div className="auth-template">
@@ -249,6 +294,7 @@ const Destiny = () => {
             </Form.Item>
           </Form>
         </Card>
+
 
         <Card className="result-card">
           <motion.div
@@ -280,3 +326,6 @@ const Destiny = () => {
 };
 
 export default Destiny;
+
+
+
