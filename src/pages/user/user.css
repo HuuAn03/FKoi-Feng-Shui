@@ -110,3 +110,346 @@ body {
   flex: 1;
   padding: 20px;
 }
+
+/* General Styles for Modals */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensures modal appears above other content */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.modal-header,
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.3s ease-in-out;
+}
+
+.modal-close:hover {
+  color: #0056b3;
+}
+
+.modal-footer {
+  justify-content: flex-end;
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal-footer button:hover {
+  background-color: #218838;
+}
+
+/* Transaction History Table */
+/* Hiệu ứng mở modal */
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  animation: slideIn 0.4s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Hiệu ứng hover cho hàng trong bảng */
+.transaction-table tr:hover {
+  background-color: #e9f5ff;
+  cursor: pointer;
+}
+
+/* Tooltip cho nội dung dài */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; 
+  left: 50%; 
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.pagination button {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pagination button:hover {
+  background-color: #40a9ff;
+}
+
+.pagination span {
+  font-size: 1rem;
+}
+
+/* Plan Selection Modal */
+.plan-details {
+  margin-bottom: 20px;
+}
+
+.plan-details p {
+  font-size: 1.1rem;
+  margin: 5px 0;
+}
+
+.plan-details .plan-price {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.modal-left {
+  width: 48%;
+  float: left;
+  padding-right: 20px;
+}
+
+.modal-right {
+  width: 48%;
+  float: left;
+}
+
+.modal-left, .modal-right {
+  box-sizing: border-box;
+}
+
+.modal-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-right li {
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal-right li:hover {
+  background-color: #e0e0e0;
+}
+
+/* Hiệu ứng khi chọn kế hoạch */
+.modal-right li.selected {
+  background-color: #d1e7ff;
+  border: 1px solid #007bff;
+}
+
+/* Hiệu ứng card cho thông tin kế hoạch */
+.plan-details {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.plan-details:hover {
+  transform: translateY(-5px);
+}
+
+/* Nền tối mờ xung quanh modal */
+.renewal-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeInOverlay 0.4s ease-in-out;
+}
+
+/* Hiệu ứng nền mờ xuất hiện */
+@keyframes fadeInOverlay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Thiết kế modal */
+.renewal-modal {
+  background: #fff;
+  padding: 40px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  animation: slideIn 0.5s ease-out;
+  transform: translateY(-20px);
+  position: relative;
+}
+
+/* Animation slide-in */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.renewal-modal h3 {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.renewal-modal p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.renewal-modal .button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.confirm-btn {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 45%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 45%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cancel-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* Đóng modal khi click ra ngoài */
+.renewal-modal-overlay {
+  cursor: pointer;
+}
+.renewal-modal {
+  cursor: auto;
+}
+
+
