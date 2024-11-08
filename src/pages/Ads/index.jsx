@@ -65,7 +65,7 @@ function ADS() {
                         >
                             <Input
                                 placeholder="Item Name"
-                                prefix={<UserOutlined />}
+                                
                                 className="ads-input"
                             />
                         </Form.Item>
@@ -97,7 +97,7 @@ function ADS() {
                             name="price"
                             rules={[
                                 { required: true, message: "Please input the price" },
-                                { pattern: /^[0-9]+(\.[0-9]{1,2})?$/, message: "Invalid price format" },
+                                
                             ]}
                         >
                             <Input

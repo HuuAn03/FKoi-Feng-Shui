@@ -27,13 +27,91 @@
   width: 45px;
   margin-right: 12px;
   border-radius: 50%;
+  animation: spin 3s linear infinite, glow 2s ease-in-out infinite, scale 5s ease-in-out infinite;
+}
+
+/* Spin animation for continuous rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glow animation for pulsing light effect */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px #1e90ff, 0 0 15px #1e90ff, 0 0 30px #1e90ff;
+  }
+  50% {
+    box-shadow: 0 0 10px #1e90ff, 0 0 20px #1e90ff, 0 0 40px #1e90ff;
+  }
+}
+
+/* Scale animation for a subtle zoom-in and out */
+@keyframes scale {
+  0%, 100% {
+    transform: scale(1) rotate(0deg); /* Keeps spin effect */
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg); /* Slight zoom */
+  }
+}
+
+/* Wobble animation for "wind-blown" effect */
+@keyframes wobble {
+  0%, 100% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(5deg); /* Adjust for subtle wobble */
+  }
 }
 
 .logo-text {
   font-size: 22px;
   font-weight: bold;
-  color: #ffffff;
   font-family: 'Georgia', serif;
+  position: relative;
+  color: #ffffff;
+  background: linear-gradient(90deg, #ffffff, #c0c0c0, #ffffff); /* Metallic gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite, bling 2s infinite alternate;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200px;
+  }
+  100% {
+    background-position: 200px;
+  }
+}
+
+/* Sparkle animation */
+@keyframes bling {
+  0%, 100% {
+    text-shadow: 
+      0px 0px 10px #fff, 
+      0px 0px 20px #fff, 
+      0px 0px 30px #1e90ff, 
+      0px 0px 40px #1e90ff, 
+      0px 0px 50px #1e90ff, 
+      0px 0px 60px #1e90ff;
+  }
+  50% {
+    text-shadow: 
+      0px 0px 5px #fff, 
+      0px 0px 10px #fff, 
+      0px 0px 15px #1e90ff, 
+      0px 0px 20px #1e90ff, 
+      0px 0px 25px #1e90ff, 
+      0px 0px 30px #1e90ff;
+  }
 }
 
 .navigation {
@@ -123,4 +201,19 @@
 
 .logout-button:hover {
   background: #d62828;
+}
+.back-dashboard-button {
+  margin-right: 10px;
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #0073e6;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-dashboard-button:hover {
+  background-color: #005bb5;
 }

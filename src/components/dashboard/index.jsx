@@ -18,7 +18,9 @@ const items = [
   getItem("Manage Advertisement", "store", <PieChartOutlined />),
   getItem("Manage Blog", "service-group", <PieChartOutlined />),
   getItem("Manage Product", "manage-product", <PieChartOutlined />),
+  getItem("Manage Users", "manage-users", <PieChartOutlined />),
 ];
+
 
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -26,6 +28,7 @@ const Dashboard = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -38,11 +41,28 @@ const Dashboard = () => {
     navigate("/login"); 
   };
 
+  const goToHomePage = () => {
+    navigate("/"); 
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} style={{ flexGrow: 1 }} />
+          
+          <Button
+            type="primary"
+            onClick={goToHomePage}
+            style={{
+              background: "#1890ff",
+              borderColor: "#1890ff",
+              margin: "16px",
+            }}
+          >
+            Go to Home Page
+          </Button>
+
           <Button
             type="primary"
             onClick={handleLogout}
@@ -66,4 +86,5 @@ const Dashboard = () => {
     </Layout>
   );
 };
+
 export default Dashboard;

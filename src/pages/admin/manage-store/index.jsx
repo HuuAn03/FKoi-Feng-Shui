@@ -40,11 +40,11 @@ const ManageStore = () => {
   }));
 
   const topUsersColumns = [
-    { title: "User ID", dataIndex: "user", key: "user" },
-    { title: "Full Name", dataIndex: "fullName", key: "fullName" },
-    { title: "Phone", dataIndex: "phoneNumber", key: "phoneNumber" },
-    { title: "Birthdate", dataIndex: "birthdate", key: "birthdate" },
-    { title: "Gender", dataIndex: "gender", key: "gender" },
+    { title: "User ID", dataIndex: "user", key: "user",align: 'left'  },
+    { title: "Full Name", dataIndex: "fullName", key: "fullName",align: 'left'  },
+    { title: "Phone", dataIndex: "phoneNumber", key: "phoneNumber" ,align: 'left'},
+    { title: "Birthdate", dataIndex: "birthdate", key: "birthdate",align: 'left' },
+    { title: "Gender", dataIndex: "gender", key: "gender",align: 'left' },
   ];
 
   return (

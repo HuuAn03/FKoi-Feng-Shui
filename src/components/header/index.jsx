@@ -5,10 +5,16 @@ import "./index.css";
 function Header() {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
+  const userRole = localStorage.getItem("role"); // Lấy role từ localStorage
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role"); // Xóa role khi đăng xuất
     navigate("/");
+  };
+
+  const goToDashboard = () => {
+    navigate("/dashboard");
   };
 
   return (
@@ -34,13 +40,17 @@ function Header() {
       <div className="login-cart">
         {isLoggedIn ? (
           <>
+            {userRole === "ADMIN" && (
+              <button onClick={goToDashboard} className="dashboard-button">
+                Go to Dashboard
+              </button>
+            )}
             <Link to="/user" className="profile-button">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
                 alt="Profile Icon"
                 className="profile-icon"
               />
-              Profile
             </Link>
             <button onClick={handleLogout} className="logout-button">
               Logout

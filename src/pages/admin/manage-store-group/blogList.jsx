@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../config/axios'; 
+import api from '../../../config/axios';
 import './BlogList.css';
 
 function BlogList() {
@@ -45,6 +45,17 @@ function BlogList() {
     }
   };
 
+  const handleDeleteBlog = async (blogId) => {
+    try {
+      await api.delete(`/blogs/${blogId}`);
+      setPendingBlogs(pendingBlogs.filter(blog => blog.blogId !== blogId));
+      setApprovedBlogs(approvedBlogs.filter(blog => blog.blogId !== blogId));
+      setRejectedBlogs(rejectedBlogs.filter(blog => blog.blogId !== blogId));
+    } catch (err) {
+      setError('Failed to delete blog. Please try again.');
+    }
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -64,22 +75,30 @@ function BlogList() {
                   <span>Category: {blog.categoryName}</span>
                   <span>Views: {blog.viewsCount}</span>
                 </div>
-                {isPending && (
-                  <div className="status-buttons">
-                    <button
-                      className="approve-btn"
-                      onClick={() => handleUpdateStatus(blog.blogId, 'APPROVED')}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="reject-btn"
-                      onClick={() => handleUpdateStatus(blog.blogId, 'REJECTED')}
-                    >
-                      Reject
-                    </button>
-                  </div>
-                )}
+                <div className="status-buttons">
+                  {isPending && (
+                    <>
+                      <button
+                        className="approve-btn"
+                        onClick={() => handleUpdateStatus(blog.blogId, 'APPROVED')}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="reject-btn"
+                        onClick={() => handleUpdateStatus(blog.blogId, 'REJECTED')}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteBlog(blog.blogId)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -91,7 +110,7 @@ function BlogList() {
   );
 
   const handlePostBlog = () => {
-    navigate('/dashboard/manage-blog'); 
+    navigate('/dashboard/manage-blog');
   };
 
   return (

@@ -46,10 +46,27 @@
   
   
   .blog-author {
-    font-size: 0.9em;
+    font-size: 1.0001em;
     color: #555;
     margin-bottom: 15px;
+    font-weight: bold;
+    color: rgb(0, 128, 255); /* Initial blue color */
+    animation: bluePulse 2s ease-in-out infinite;
   }
+  
+  @keyframes bluePulse {
+    0% {
+      color: rgb(0, 128, 255); /* Lighter blue */
+    }
+    50% {
+      color: rgb(0, 64, 128); /* Darker blue */
+    }
+    100% {
+      color: rgb(0, 128, 255); /* Back to lighter blue */
+    }
+  }
+  
+  
   
   
   .blog-meta {

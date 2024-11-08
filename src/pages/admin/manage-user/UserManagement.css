@@ -1,0 +1,87 @@
+/* UserManagement.css */
+
+.user-management {
+    max-width: 1000px; /* Tăng chiều rộng tối đa của bảng */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .status-select, .search-input {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px; /* Tăng kích thước phông chữ */
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 16px 20px; /* Tăng đệm để bảng trông thoáng hơn */
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .user-table th {
+    background-color: #0073e6; /* Màu nền cho tiêu đề bảng */
+    color: #ffffff; /* Màu chữ trắng cho tiêu đề */
+    font-weight: bold;
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f1f9ff; /* Màu nền nhạt cho các hàng chẵn */
+  }
+  
+  .user-table tr:nth-child(odd) {
+    background-color: #ffffff; /* Màu nền trắng cho các hàng lẻ */
+  }
+  
+  .user-table tr:hover {
+    background-color: #e1f0ff; /* Màu nền khi hover */
+  }
+  
+  .user-table button {
+    margin-right: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-table button:hover {
+    background-color: #ddd;
+  }
+  
+  .user-table button:nth-child(1) {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .user-table button:nth-child(2) {
+    background-color: #ffa500;
+    color: white;
+  }
+  
+  .user-table button:nth-child(3) {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  /* Tiêu đề cho phần quản lý người dùng */
+  .user-management h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  

@@ -105,8 +105,8 @@ function ManageServiceGroup() {
                         rules={[{ required: true, message: "Please select a category" }]}
                     >
                         <Select placeholder="Select Category">
-                            <Select.Option value="category1">Category 1</Select.Option>
-                            <Select.Option value="category2">Category 2</Select.Option>
+                            <Select.Option value="category1">Koi Fish</Select.Option>
+                            <Select.Option value="category2">Feng Shui</Select.Option>
                         </Select>
                     </Form.Item>
 
