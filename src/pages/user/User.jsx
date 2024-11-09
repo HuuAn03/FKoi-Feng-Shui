@@ -5,17 +5,25 @@ import Modal from './Modal';
 import './user.css';
 import { toast } from "react-toastify";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
+    const navigate = useNavigate();
     const [ads, setAds] = useState([]);
     const [plan, setPlan] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [renewModalVisible, setRenewModalVisible] = useState(false);
-    const [renewUrl, setRenewUrl] = useState(null);
+    const [transactionModalVisible, setTransactionModalVisible] = useState(false); // Modal for Transaction History
+    const [transactions, setTransactions] = useState([]); // Transactions list
     const [selectedAdId, setSelectedAdId] = useState(null);
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showProfileForm, setShowProfileForm] = useState(false);
+    const [totalPages, setTotalPages] = useState(0);
+    const [transactionPage, setTransactionPage] = useState(0); // Track transaction page for pagination
+    const [transactionTotalPages, setTransactionTotalPages] = useState(0); // Track total pages of transactions
+
+    const [page, setPage] = useState(parseInt(localStorage.getItem("page") || 0));
 
     const [userInfo, setUserInfo] = useState({
         fullName: "",
@@ -24,15 +32,43 @@ const User = () => {
         gender: "",
     });
 
-    const fetchPublishedAds = async () => {
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+        } else {
+            fetchUserProfile();
+            fetchPublishedAds();
+        }
+    }, [navigate]);
+
+    const fetchPublishedAds = async (pageNumber = page, pageSize = 8) => {
         try {
-            const response = await api.get("ads/my");
+            const response = await api.get(`ads/my?page=${pageNumber}&size=${pageSize}`);
             setAds(Array.isArray(response.data.ads) ? response.data.ads : []);
+            setTotalPages(response.data.totalPages);
         } catch (e) {
             console.log("Error fetching ads: ", e);
             setAds([]);
         }
     };
+
+    const handleNextPage = () => {
+        if (page < totalPages - 1) {
+            const nextPage = page + 1;
+            setPage(nextPage);
+            localStorage.setItem("page", nextPage); // Lưu trạng thái trang vào localStorage
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (page > 0) {
+            const prevPage = page - 1;
+            setPage(prevPage);
+            localStorage.setItem("page", prevPage); // Lưu trạng thái trang vào localStorage
+        }
+    };
+
     const fetchUserProfile = async () => {
         try {
             const accountId = localStorage.getItem("accountId");
@@ -81,8 +117,8 @@ const User = () => {
     };
 
     useEffect(() => {
-        fetchPublishedAds();
-    }, []);
+        fetchPublishedAds(page); // Gọi fetchPublishedAds với trang hiện tại
+    }, [page]);
 
     const handlePayment = async (adId) => {
         try {
@@ -115,6 +151,7 @@ const User = () => {
             console.error("Error subscribing to plan:", error.response ? error.response.data : error.message);
         }
     };
+
     const handleFinalApproval = async (adId) => {
         if (adId) {
             try {
@@ -127,21 +164,45 @@ const User = () => {
         }
     };
 
-    const handleRenewAd = async (adId) => {
+    const handleRenewAd = (adId) => {
+        setSelectedAdId(adId);
+        setRenewModalVisible(true); // Chỉ hiển thị modal, không gọi API ngay lập tức
+    };
+
+    const confirmRenewal = async () => {
+        if (!selectedAdId) return;
         try {
-            const response = await api.put(`/ads/${adId}/renew`);
-            setRenewUrl(response.data); 
-            setRenewModalVisible(true); 
-        } catch (e) {
-            console.error("Error renewing ad:", e);
+            const response = await api.put(`/ads/${selectedAdId}/renew`);
+            window.location.href = response.data; // Điều hướng tới trang thanh toán
+            setRenewModalVisible(false); // Đóng modal sau khi xác nhận và điều hướng
+        } catch (error) {
+            console.error("Error renewing ad:", error);
+            setRenewModalVisible(false); // Đóng modal nếu có lỗi xảy ra
         }
     };
 
-    const confirmRenewal = () => {
-        if (renewUrl) {
-            window.location.href = renewUrl; 
+    const fetchTransactions = async (transactionPageNumber = transactionPage) => {
+        try {
+            const response = await api.get(`transactions/my?page=${transactionPageNumber}&size=5`);
+            setTransactions(response.data.transactions);
+            setTransactionTotalPages(response.data.totalPages);
+        } catch (error) {
+            console.error("Error fetching transactions:", error);
         }
-        setRenewModalVisible(false); 
+    };
+
+    const handleTransactionNextPage = () => {
+        if (transactionPage < transactionTotalPages - 1) {
+            setTransactionPage(transactionPage + 1);
+            fetchTransactions(transactionPage + 1);
+        }
+    };
+
+    const handleTransactionPreviousPage = () => {
+        if (transactionPage > 0) {
+            setTransactionPage(transactionPage - 1);
+            fetchTransactions(transactionPage - 1);
+        }
     };
 
     return (
@@ -155,6 +216,12 @@ const User = () => {
                     Personal Information
                 </button>
                 <button onClick={() => setShowProfileForm(false)} className="sidebar-btn">Advertisement</button>
+                <button onClick={() => {
+                    setTransactionModalVisible(true);
+                    fetchTransactions();
+                }} className="sidebar-btn">
+                    View Transaction History
+                </button>
             </div>
 
             {/* Main Content */}
@@ -240,7 +307,7 @@ const User = () => {
                                         <td>{ad.description}</td>
                                         <td>{ad.status}</td>
                                         <td>{ad.contactInfo}</td>
-                                        <td>{ad.price} VND</td>                               
+                                        <td>{ad.price} VND</td>
                                         <td>
                                             {ad.status === 'APPROVED' && (
                                                 <button onClick={() => handlePayment(ad.adId)}>Choose Plan</button>
@@ -254,11 +321,90 @@ const User = () => {
                                         </td>
                                     </tr>
                                 ))}
+                                <div className="pagination">
+                                    <button onClick={handlePreviousPage} disabled={page === 0}>
+                                        Previous
+                                    </button>
+                                    <span>Page {page + 1} of {totalPages}</span>
+                                    <button onClick={handleNextPage} disabled={page === totalPages - 1}>
+                                        Next
+                                    </button>
+                                </div>
                             </tbody>
                         </table>
                     </div>
                 )}
             </div>
+
+
+
+            {/* Transaction History Modal */}
+            {transactionModalVisible && (
+                <Modal show={transactionModalVisible} onClose={() => setTransactionModalVisible(false)}>
+                    <h3>Transaction History</h3>
+                    <table className="transaction-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Plan Name</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transactions.length > 0 ? (
+                                transactions.map((transaction, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <div className="tooltip">
+                                                {transaction.transactionId || 'N/A'}
+                                                <span className="tooltip-text">Transaction ID</span>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div className="tooltip">
+                                                {transaction.userName || 'N/A'}
+                                                <span className="tooltip-text">User Name</span>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div className="tooltip">
+                                                {transaction.amount || '0'}
+                                                <span className="tooltip-text">Amount - VND</span>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div className="tooltip">
+                                                {transaction.planName || 'N/A'}
+                                                <span className="tooltip-text">Plan</span>
+                                            </div>
+                                        </td>
+
+                                        <td>{transaction.transactionDate ? moment(transaction.transactionDate).format("DD/MM/YYYY") : 'N/A'}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5" style={{ textAlign: 'center' }}>No transactions found</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    <div className="pagination">
+                        <button onClick={handleTransactionPreviousPage} disabled={transactionPage === 0}>
+                            Previous
+                        </button>
+                        <span>Page {transactionPage + 1} of {transactionTotalPages}</span>
+                        <button onClick={handleTransactionNextPage} disabled={transactionPage === transactionTotalPages - 1}>
+                            Next
+                        </button>
+                    </div>
+                </Modal>
+            )}
 
             {/* Plan Selection Modal */}
             <Modal show={showModal} onClose={() => setShowModal(false)}>
@@ -266,9 +412,10 @@ const User = () => {
                     <h3>Selected Plan Details</h3>
                     {selectedPlan ? (
                         <div className="plan-details">
-                            <p>Name: {selectedPlan.name}</p>
+                            <p>Duration: {selectedPlan.duration}</p>
+                            <p>Priority: {selectedPlan.adPlacementPriority}</p>
                             <p>Price: {selectedPlan.price}</p>
-                            <p>Features: {selectedPlan.features}</p>
+                            <p>Description: {selectedPlan.description}</p>
                         </div>
                     ) : (
                         <p>Please select a plan from the list.</p>
@@ -278,9 +425,13 @@ const User = () => {
                     <h3>Choose Plan</h3>
                     <ul>
                         {plan.map((item) => (
-                            <li key={item.planId} onClick={() => handlePlanClick(item)}>
-                                {item.name} - {item.price} VND
+                            <li
+                                key={item.planId}
+                                onClick={() => handlePlanClick(item)}
+                                className={selectedPlan?.planId === item.planId ? 'selected' : ''}>
+                                {item.planName} - {item.price} VND
                             </li>
+
                         ))}
                     </ul>
                 </div>
@@ -299,8 +450,8 @@ const User = () => {
                 <Modal show={renewModalVisible} onClose={() => setRenewModalVisible(false)}>
                     <h3>Confirm Renewal</h3>
                     <p>Are you sure you want to renew this ad?</p>
-                    <button onClick={confirmRenewal}>Yes, Renew</button>
-                    <button onClick={() => setRenewModalVisible(false)}>Cancel</button>
+                    <button className="confirm-btn" onClick={confirmRenewal}>Yes, Pay for it</button>
+                    <button className="cancel-btn" onClick={() => setRenewModalVisible(false)}>Cancel</button>
                 </Modal>
             )}
         </div>
