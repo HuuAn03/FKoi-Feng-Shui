@@ -1,0 +1,142 @@
+/* Footer Container */
+.footer-container {
+    padding: 40px 20px;
+    color: #ffffff;
+    background-color: #3b6978;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  /* Left Column: Contact Information */
+  .contact-info {
+    flex: 1;
+    max-width: 30%;
+    padding-right: 20px;
+  }
+  
+  .contact-info h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #e0f2f1;
+  }
+  
+  .contact-info p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #f0f8ff;
+  }
+  
+  /* Social Icons */
+  .social-icons {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .social-icon {
+    font-size: 24px;
+    color: #e0f2f1;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .social-icon:hover {
+    color: #76c7c0;
+  }
+  
+  /* Center Column: Quick Links */
+  .quick-links {
+    flex: 1;
+    max-width: 30%;
+    padding-right: 20px;
+    text-align: center;
+  }
+  
+  .quick-links h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #e0f2f1;
+  }
+  
+  .quick-links ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .quick-links li {
+    margin-bottom: 8px;
+  }
+  
+  .quick-links a {
+    color: #f0f8ff;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .quick-links a:hover {
+    color: #76c7c0;
+  }
+  
+  /* Right Column: Map Container */
+  .map-container {
+    flex: 1;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .map-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e0f2f1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .map-title-icon {
+    font-size: 20px;
+  }
+  
+  .map-button {
+    background-color: #76c7c0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  .map-button:hover {
+    background-color: #4ba3a2;
+  }
+  
+  /* Footer Bottom Text */
+  .footer-bottom-text {
+    color: #f0f8ff;
+    font-size: 14px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .footer-container {
+      flex-direction: column;
+    }
+    .contact-info, .quick-links, .map-container {
+      max-width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+  }
+  
