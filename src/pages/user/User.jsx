@@ -6,6 +6,8 @@ import './user.css';
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import Blog from "./blog";
+import UserBlogs from "./blog-manager";
 
 const User = () => {
     const navigate = useNavigate();
@@ -23,6 +25,8 @@ const User = () => {
     const [transactionPage, setTransactionPage] = useState(0);
     const [transactionTotalPages, setTransactionTotalPages] = useState(0);
     const [page, setPage] = useState(parseInt(localStorage.getItem("page") || 0));
+    const [showBlogForm, setShowBlogForm] = useState(false);
+    const [showUserBlogs, setShowUserBlogs] = useState(false);
 
     const [userInfo, setUserInfo] = useState({
         fullName: "",
@@ -30,6 +34,16 @@ const User = () => {
         birthdate: null,
         gender: "",
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+        } else {
+            fetchUserProfile();
+            fetchPublishedAds();
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -211,11 +225,31 @@ const User = () => {
             <div className="custom-sidebar">
                 <button onClick={() => {
                     setShowProfileForm(true);
+                    setShowBlogForm(false);
+                    setShowUserBlogs(false); // Hide User Blogs when other options are selected
                     fetchUserProfile();
                 }} className="sidebar-btn">
                     Personal Information
                 </button>
-                <button onClick={() => setShowProfileForm(false)} className="sidebar-btn">Advertisement</button>
+                <button onClick={() => {
+                    setShowProfileForm(false);
+                    setShowBlogForm(false);
+                    setShowUserBlogs(false); // Hide User Blogs
+                }} className="sidebar-btn">Advertisement</button>
+                <button onClick={() => {
+                    setShowProfileForm(false);
+                    setShowBlogForm(true);
+                    setShowUserBlogs(false); // Hide User Blogs
+                }} className="sidebar-btn">
+                    Post Blog
+                </button>
+                <button onClick={() => {
+                    setShowProfileForm(false);
+                    setShowBlogForm(false);
+                    setShowUserBlogs(true); // Show User Blogs
+                }} className="sidebar-btn">
+                    My Blog
+                </button>
                 <button onClick={() => {
                     setTransactionModalVisible(true);
                     fetchTransactions();
@@ -285,6 +319,10 @@ const User = () => {
                         </Form.Item>
                         <button type="submit" className="form-submit-btn">Submit</button>
                     </Form>
+                ) : showBlogForm ? (
+                    <Blog />  // Render Blog form component
+                ) : showUserBlogs ? (
+                    <UserBlogs />  // Render UserBlogs component
                 ) : (
                     <div className="ad-list-container">
                         <table className="ad-table">
@@ -317,6 +355,9 @@ const User = () => {
                                             )}
                                             {ad.status === 'EXPIRED' && (
                                                 <button className="renew" onClick={() => handleRenewAd(ad.adId)}>Renew</button>
+                                            )}
+                                            {ad.status === 'EXPIRED' && (
+                                                <button className="renew" onClick={() => handleRenewAd(ad.adId)}>Repay</button>
                                             )}
                                         </td>
                                     </tr>

@@ -3,12 +3,13 @@ import { Button, Result } from "antd";
 import api from "../../config/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function SuccessPage() {
+function PaymentResultPage() {
     const location = useLocation();
-    const [message, setMessage] = useState([]);
-    const [redirectUrl, setRedirectUrl] = useState([]);
-    const [adId1, setAdId1] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [message, setMessage] = useState("");
+    const [adId, setAdId] = useState(null);
     const navigate = useNavigate();
+
     const postOrderID = async () => {
         const queryParams = new URLSearchParams(location.search);
         const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
@@ -22,51 +23,84 @@ function SuccessPage() {
             });
             console.log(response.data);
             setMessage(response.data.message);
-            setAdId1(response.data.adId);
+            setAdId(response.data.adId);
+
+            // Check for success or failure codes
+            if (vnp_ResponseCode === "00") {
+                setStatus("success");
+            } else if (["01", "02"].includes(vnp_ResponseCode)) {
+                setStatus("error");
+            } else {
+                setStatus("error");
+                setMessage("Có lỗi xảy ra khi xử lý thanh toán.");
+            }
         } catch (e) {
             console.log(e);
+            setStatus("error");
+            setMessage("Có lỗi xảy ra khi xử lý thanh toán.");
         }
     };
     const handleFinalApproval = async () => {
-        if (adId1) {
+        if (adId) {
             try {
-                const response = await api.put(`/ads/${adId1}/approval`);
-                console.log(response.data);
+                await api.put(`/ads/${adId}/approval`);
                 navigate("/user");
             } catch (e) {
                 console.log(e);
             }
         }
     };
-    const handleViewAds = async () => {
-        if (adId1) {
-            try {
-                const response = await api.get(`/ads/id/${adId1}`);
-                navigate(`/product/${adId1}`);
-            } catch (error) {
-                console.log(error);
-            }
+
+    const handleViewAds = () => {
+        if (adId) {
+            navigate(`/product/${adId}`);
         }
     };
+
+    const handleRetry = () => {
+        navigate("/user");
+    };
+
+    const handleBackToHome = () => {
+        navigate("/");
+    };
+
     useEffect(() => {
         postOrderID();
     }, []);
+
     return (
         <div>
-            <Result
-                status="success"
-                title={message}
-                subTitle=" "
-                extra={[
-                    <Button type="primary" key="approve" onClick={handleFinalApproval}>
-                        Public quảng cáo đó
-                    </Button>,
-                    <Button type="primary" key="redirect" onClick={handleViewAds}>
-                        Xem lại quảng cáo
-                    </Button>,
-                ]}
-            />
+            {status === "success" ? (
+                <Result
+                    status="success"
+                    title={message}
+                    subTitle=" "
+                    extra={[
+                        <Button type="primary" key="approve" onClick={handleFinalApproval}>
+                            Public quảng cáo đó
+                        </Button>,
+                        <Button type="primary" key="redirect" onClick={handleViewAds}>
+                            Xem lại quảng cáo
+                        </Button>,
+                    ]}
+                />
+            ) : (
+                <Result
+                    status="error"
+                    title="Payment Fail"
+                    subTitle="Check your advertisement"
+                    extra={[
+                        <Button type="primary" key="retry" onClick={handleRetry}>
+                            Thử lại
+                        </Button>,
+                        <Button key="home" onClick={handleBackToHome}>
+                            Quay lại trang chủ
+                        </Button>,
+                    ]}
+                />
+            )}
         </div>
     );
 }
-export default SuccessPage;
+export default PaymentResultPage;

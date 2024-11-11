@@ -3,3 +3,23 @@
     padding: 0;
     box-sizing: 0;
 }
+/* index.css */
+
+/* Light mode */
+body.light {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+  }
+  
+  /* Dark mode */
+  body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+  }
+  
+  /* Sử dụng biến màu chung */
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
