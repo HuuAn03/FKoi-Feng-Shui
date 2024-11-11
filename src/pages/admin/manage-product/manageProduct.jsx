@@ -12,14 +12,23 @@ function ManageProduct() {
     setLoading(true);
     try {
       const response = await api.get(`/ads/all?page=${pageNumber}&size=${pageSize}`);
-      setAds(response.data.ads);
-      setTotalPages(response.data.totalPages); // Assuming totalPages is in the response
+      
+      // Sort ads so that PENDING ads appear first
+      const sortedAds = response.data.ads.sort((a, b) => {
+        if (a.status === 'PENDING' && b.status !== 'PENDING') return -1;
+        if (a.status !== 'PENDING' && b.status === 'PENDING') return 1;
+        return 0;
+      });
+      
+      setAds(sortedAds);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Error fetching ads:", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchAds(page); // Fetch ads whenever `page` changes
@@ -35,6 +44,19 @@ function ManageProduct() {
       );
     } catch (error) {
       console.error("Error approving ad:", error);
+    }
+  };
+
+  const handleReject = async (adId) => {
+    try {
+      await api.put(`ads/${adId}/status?status=REJECTED`);
+      setAds((prevAds) =>
+        prevAds.map((ad) =>
+          ad.adId === adId ? { ...ad, status: 'REJECTED' } : ad
+        )
+      );
+    } catch (error) {
+      console.error("Error rejecting ad:", error);
     }
   };
 
@@ -55,6 +77,7 @@ function ManageProduct() {
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Product Name</th>
               <th>Type</th>
               <th>Description</th>
@@ -68,6 +91,7 @@ function ManageProduct() {
           <tbody>
             {ads.map((ad) => (
               <tr key={ad.adId}>
+                <td>{ad.adId}</td>
                 <td>{ad.productName}</td>
                 <td>{ad.productType}</td>
                 <td>{ad.description}</td>
@@ -77,7 +101,14 @@ function ManageProduct() {
                 <td>{ad.contactInfo}</td>
                 <td>
                   {ad.status === 'PENDING' && (
-                    <button onClick={() => handleApprove(ad.adId)}>Approve</button>
+                    <>
+                      <button className="approve-btn" onClick={() => handleApprove(ad.adId)}>
+                        Approve
+                      </button>
+                      <button className="reject-btn" onClick={() => handleReject(ad.adId)}>
+                        Reject
+                      </button>
+                    </>
                   )}
                 </td>
               </tr>

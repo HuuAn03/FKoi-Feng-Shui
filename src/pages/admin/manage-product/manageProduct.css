@@ -56,3 +56,32 @@ body {
     margin-top: 20px;
   }
   
+
+  .approve-btn {
+    background-color: #28a745; /* Green color for approve */
+    color: white;
+    padding: 6px 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .approve-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .reject-btn {
+    background-color: #dc3545; /* Red color for reject */
+    color: white;
+    padding: 6px 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .reject-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  

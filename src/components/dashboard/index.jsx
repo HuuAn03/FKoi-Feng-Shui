@@ -60,7 +60,7 @@ const Dashboard = () => {
               margin: "16px",
             }}
           >
-            Go to Home Page
+            Home Page
           </Button>
 
           <Button
