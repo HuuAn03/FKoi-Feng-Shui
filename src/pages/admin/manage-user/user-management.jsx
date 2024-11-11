@@ -11,12 +11,20 @@ const UserManagement = () => {
     setLoading(true);
     try {
       const response = await api.get(`/user`, { params: { status } });
-      console.log("Fetched users:", response.data.users);
       setUsers(response.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const toggleUserStatus = async (userId) => {
+    try {
+      await api.patch(`/user/${userId}/toggle-status`);
+      fetchUsers(status);
+    } catch (error) {
+      console.error("Error toggling user status:", error);
     }
   };
 
@@ -26,39 +34,24 @@ const UserManagement = () => {
     fetchUsers(value);
   };
 
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    const filteredUsers = users.filter(
-      (user) =>
-        user.fullName.toLowerCase().includes(value.toLowerCase()) ||
-        user.phoneNumber.includes(value)
-    );
-    setUsers(filteredUsers);
-  };
-
   useEffect(() => {
     fetchUsers(status);
   }, [status]);
 
   return (
-    <div >
+    <div>
       <h2>User Management</h2>
       <select value={status} onChange={handleStatusChange} className="status-select">
         <option value="ACTIVE">Active</option>
         <option value="INACTIVE">Inactive</option>
       </select>
-      <input
-        type="text"
-        placeholder="Search by name or phone"
-        onChange={handleSearch}
-        className="search-input"
-      />
       {loading ? (
         <p>Loading...</p>
       ) : (
         <table className="user-table">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Full Name</th>
               <th>Phone Number</th>
               <th>Birthdate</th>
@@ -69,14 +62,15 @@ const UserManagement = () => {
           <tbody>
             {users.map((user) => (
               <tr key={user.user}>
+                <td>{user.user}</td>
                 <td>{user.fullName}</td>
                 <td>{user.phoneNumber}</td>
                 <td>{user.birthdate}</td>
                 <td>{user.gender}</td>
                 <td>
-                  <button onClick={() => console.log("View user:", user)}>View</button>
-                  <button onClick={() => console.log("Edit user:", user)}>Edit</button>
-                  <button onClick={() => console.log("Delete user:", user)}>Delete</button>
+                  <button onClick={() => toggleUserStatus(user.user)}>
+                    {status === "ACTIVE" ? "Block" : "Unblock"}
+                  </button>
                 </td>
               </tr>
             ))}
