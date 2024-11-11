@@ -452,4 +452,10 @@ body {
   cursor: auto;
 }
 
+.ads-select .ant-select-selection-placeholder {
+  color: #888; /* Set the placeholder color */
+  font-size: 16px;
+  font-style: italic;
+  opacity: 1; /* Ensure it's fully opaque */
+}
 

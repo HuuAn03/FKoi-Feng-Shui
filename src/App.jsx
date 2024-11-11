@@ -18,7 +18,6 @@ import ProductPage from "./pages/Product";
 import ADS from "./pages/Ads";
 import FateCalculator from "./pages/destiny";
 import User from "./pages/user/User";
-import SuccessPage from "./pages/payment-callback/success";
 import BlogPage from "./pages/blog/blog";
 import ManageProduct from "./pages/admin/manage-product/manageProduct";
 import ProductDetailPage from "./pages/Product/productDetail";
@@ -27,7 +26,8 @@ import BlogList from "./pages/admin/manage-store-group/blogList";
 import requestPermission from "./config/notificarion";
 import PasswordPage from "./pages/Password";
 import UserManagement from "./pages/admin/manage-user/user-management";
-import FailPage from "./pages/payment-callback/fail";
+import PaymentResultPage from "./pages/payment-callback/success";
+
 
 
 function App() {
@@ -72,11 +72,7 @@ function App() {
         },
         {
           path: "success",
-          element: <SuccessPage/>,
-        },
-        {
-          path: "fail",
-          element: <FailPage/>,
+          element: <PaymentResultPage/>,
         },
         {
           path: "blog",

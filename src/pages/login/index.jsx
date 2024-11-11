@@ -59,7 +59,7 @@ function LoginPage() {
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
       if (role === "ADMIN") {
-        navigate("/dashboard");
+        navigate("/dashboard/manage-users");
       } else {
         navigate("/");
       }

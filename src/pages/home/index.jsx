@@ -9,7 +9,7 @@ function HomePage() {
 
   useEffect(() => {
     if (selectedFate) {
-      api.get(`/products/random`, { params: { fateType: selectedFate } })
+      api.get(`/ads/random`, { params: { fateType: selectedFate } })
         .then(response => setProducts(response.data))
         .catch(error => console.error("Error fetching products:", error));
     }

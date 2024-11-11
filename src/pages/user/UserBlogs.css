@@ -1,0 +1,130 @@
+/* Tổng thể container */
+.user-blogs-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề */
+.user-blogs-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Danh sách blog */
+.blog-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Blog card */
+.blog-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Ảnh thumbnail */
+.blog-thumbnail {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* Tiêu đề của blog */
+.blog-card h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+/* Mô tả ngắn */
+.blog-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* Trạng thái */
+.blog-card p strong {
+    color: #333;
+}
+
+/* Chi tiết blog */
+.blog-details {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Nút quay lại */
+.back-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Hình ảnh chính của blog */
+.blog-main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Nội dung blog */
+.blog-content {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Tags */
+.blog-tags {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.blog-tags ul {
+    padding: 0;
+    list-style: none;
+}
+
+.blog-tags .tag {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
