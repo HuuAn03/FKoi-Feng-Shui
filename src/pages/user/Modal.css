@@ -1,11 +1,10 @@
-/* General Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  background: rgba(34, 34, 34, 0.7); /* Đổi màu nền mờ tối hơn */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,71 +12,135 @@
 }
 
 .modal-container {
-  background: #fff;
-  width: 90%;
-  max-width: 500px;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  text-align: center;
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Đổi bóng đổ tối hơn */
+  display: flex;
+  gap: 20px;
+  background-color: #fafafa; /* Đổi màu nền tổng thể */
 }
 
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #666;
-  transition: color 0.2s ease;
-}
-
-.modal-close-btn:hover {
-  color: #333;
+.modal-left,
+.modal-right {
+  flex: 1;
+  padding: 10px;
 }
 
 .modal-header {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #333;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #444; /* Đổi màu chữ tiêu đề */
+  text-align: center;
 }
 
-.modal-content {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 1.5rem;
+.modal-right ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Buttons inside the modal */
-.modal-button {
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-size: 1rem;
+.modal-right ul li {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  margin: 0 0.5rem;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.modal-right ul li:hover {
+  transform: scale(1.03);
+}
+
+.selected {
+  border-color: #00695c; /* Đổi màu viền khi chọn */
+  background-color: #b2dfdb; /* Đổi màu nền khi chọn */
+  color: #004d40; /* Đổi màu chữ khi chọn */
+}
+
+/* Unique colors for each plan based on order */
+.modal-right ul li:nth-child(1) {
+  background-color: #ffecb3; /* Đổi màu nền */
+  color: #e65100; /* Đổi màu chữ */
+}
+
+.modal-right ul li:nth-child(2) {
+  background-color: #c5e1a5;
+  color: #33691e;
+}
+
+.modal-right ul li:nth-child(3) {
+  background-color: #ffe0b2;
+  color: #e65100;
+}
+
+.modal-right ul li:nth-child(4) {
+  background-color: #d1c4e9;
+  color: #4a148c;
+}
+
+.modal-right ul li:nth-child(5) {
+  background-color: #bbdefb;
+  color: #01579b;
+}
+
+.modal-right ul li:nth-child(6) {
+  background-color: #ffccbc;
+  color: #bf360c;
+}
+
+/* Confirm and Cancel buttons */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  width: 120px;
   transition: background-color 0.2s ease;
 }
 
 .modal-button-confirm {
-  background-color: #28a745;
+  background-color: #00796b; /* Đổi màu nền nút xác nhận */
   color: #fff;
   border: none;
 }
 
 .modal-button-confirm:hover {
-  background-color: #218838;
+  background-color: #004d40;
 }
 
 .modal-button-cancel {
-  background-color: #e0e0e0;
-  color: #333;
+  background-color: #c62828; /* Đổi màu nền nút hủy */
+  color: #fff;
   border: none;
 }
 
 .modal-button-cancel:hover {
-  background-color: #bdbdbd;
+  background-color: #b71c1c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-container {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .modal-left,
+  .modal-right {
+    width: 100%;
+  }
 }

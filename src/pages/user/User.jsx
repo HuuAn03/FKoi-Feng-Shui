@@ -13,16 +13,15 @@ const User = () => {
     const [plan, setPlan] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [renewModalVisible, setRenewModalVisible] = useState(false);
-    const [transactionModalVisible, setTransactionModalVisible] = useState(false); // Modal for Transaction History
-    const [transactions, setTransactions] = useState([]); // Transactions list
+    const [transactionModalVisible, setTransactionModalVisible] = useState(false);
+    const [transactions, setTransactions] = useState([]);
     const [selectedAdId, setSelectedAdId] = useState(null);
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showProfileForm, setShowProfileForm] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
-    const [transactionPage, setTransactionPage] = useState(0); // Track transaction page for pagination
-    const [transactionTotalPages, setTransactionTotalPages] = useState(0); // Track total pages of transactions
-
+    const [transactionPage, setTransactionPage] = useState(0);
+    const [transactionTotalPages, setTransactionTotalPages] = useState(0);
     const [page, setPage] = useState(parseInt(localStorage.getItem("page") || 0));
 
     const [userInfo, setUserInfo] = useState({
@@ -57,7 +56,7 @@ const User = () => {
         if (page < totalPages - 1) {
             const nextPage = page + 1;
             setPage(nextPage);
-            localStorage.setItem("page", nextPage); // Lưu trạng thái trang vào localStorage
+            localStorage.setItem("page", nextPage);
         }
     };
 
@@ -65,7 +64,7 @@ const User = () => {
         if (page > 0) {
             const prevPage = page - 1;
             setPage(prevPage);
-            localStorage.setItem("page", prevPage); // Lưu trạng thái trang vào localStorage
+            localStorage.setItem("page", prevPage);
         }
     };
 
@@ -117,7 +116,7 @@ const User = () => {
     };
 
     useEffect(() => {
-        fetchPublishedAds(page); // Gọi fetchPublishedAds với trang hiện tại
+        fetchPublishedAds(page);
     }, [page]);
 
     const handlePayment = async (adId) => {
@@ -133,6 +132,7 @@ const User = () => {
 
     const handlePlanClick = (plan) => setSelectedPlan(plan);
     const handleConfirmClick = () => setShowConfirmation(true);
+
     const handleFinalConfirm = async () => {
         if (!selectedAdId || !selectedPlan) {
             console.error("Ad ID or Plan ID is missing!");
@@ -166,18 +166,18 @@ const User = () => {
 
     const handleRenewAd = (adId) => {
         setSelectedAdId(adId);
-        setRenewModalVisible(true); // Chỉ hiển thị modal, không gọi API ngay lập tức
+        setRenewModalVisible(true);
     };
 
     const confirmRenewal = async () => {
         if (!selectedAdId) return;
         try {
             const response = await api.put(`/ads/${selectedAdId}/renew`);
-            window.location.href = response.data; // Điều hướng tới trang thanh toán
-            setRenewModalVisible(false); // Đóng modal sau khi xác nhận và điều hướng
+            window.location.href = response.data;
+            setRenewModalVisible(false);
         } catch (error) {
             console.error("Error renewing ad:", error);
-            setRenewModalVisible(false); // Đóng modal nếu có lỗi xảy ra
+            setRenewModalVisible(false);
         }
     };
 
@@ -302,21 +302,21 @@ const User = () => {
                             <tbody>
                                 {ads.map((ad) => (
                                     <tr key={ad.adId} className="ad-row">
-                                        <td><img src={ad.imageUrl} alt={ad.productName} className="ad-image" /></td>
+                                        <td className="image-cell"><img src={ad.imageUrl} alt={ad.productName} className="ad-image" /></td>
                                         <td>{ad.productName}</td>
                                         <td>{ad.description}</td>
                                         <td>{ad.status}</td>
                                         <td>{ad.contactInfo}</td>
-                                        <td>{ad.price} VND</td>
+                                        <td>{ad.price.toLocaleString()} VND</td>
                                         <td>
                                             {ad.status === 'APPROVED' && (
-                                                <button onClick={() => handlePayment(ad.adId)}>Choose Plan</button>
+                                                <button className="choose-plan" onClick={() => handlePayment(ad.adId)}>Choose Plan</button>
                                             )}
                                             {ad.status === 'QUEUED_FOR_POST' && (
-                                                <button onClick={() => handleFinalApproval(ad.adId)}>Post Ad</button>
+                                                <button className="post-ad" onClick={() => handleFinalApproval(ad.adId)}>Post Ad</button>
                                             )}
                                             {ad.status === 'EXPIRED' && (
-                                                <button onClick={() => handleRenewAd(ad.adId)}>Renew</button>
+                                                <button className="renew" onClick={() => handleRenewAd(ad.adId)}>Renew</button>
                                             )}
                                         </td>
                                     </tr>
@@ -335,8 +335,6 @@ const User = () => {
                     </div>
                 )}
             </div>
-
-
 
             {/* Transaction History Modal */}
             {transactionModalVisible && (
@@ -362,28 +360,24 @@ const User = () => {
                                                 <span className="tooltip-text">Transaction ID</span>
                                             </div>
                                         </td>
-
                                         <td>
                                             <div className="tooltip">
                                                 {transaction.userName || 'N/A'}
                                                 <span className="tooltip-text">User Name</span>
                                             </div>
                                         </td>
-
                                         <td>
                                             <div className="tooltip">
-                                                {transaction.amount || '0'}
+                                                {transaction.amount ? transaction.amount.toLocaleString() : '0'}
                                                 <span className="tooltip-text">Amount - VND</span>
                                             </div>
                                         </td>
-
                                         <td>
                                             <div className="tooltip">
                                                 {transaction.planName || 'N/A'}
                                                 <span className="tooltip-text">Plan</span>
                                             </div>
                                         </td>
-
                                         <td>{transaction.transactionDate ? moment(transaction.transactionDate).format("DD/MM/YYYY") : 'N/A'}</td>
                                     </tr>
                                 ))
@@ -408,39 +402,41 @@ const User = () => {
 
             {/* Plan Selection Modal */}
             <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <div className="modal-left">
-                    <h3>Selected Plan Details</h3>
-                    {selectedPlan ? (
-                        <div className="plan-details">
-                            <p>Duration: {selectedPlan.duration}</p>
-                            <p>Priority: {selectedPlan.adPlacementPriority}</p>
-                            <p>Price: {selectedPlan.price}</p>
-                            <p>Description: {selectedPlan.description}</p>
-                        </div>
-                    ) : (
-                        <p>Please select a plan from the list.</p>
-                    )}
+                <div className="modal-container">
+                    <div className="modal-left">
+                        <h3>Selected Plan Details</h3>
+                        {selectedPlan ? (
+                            <div className="plan-details">
+                                <p>Duration: {selectedPlan.duration}</p>
+                                <p>Priority: {selectedPlan.adPlacementPriority}</p>
+                                <p>Price: {selectedPlan.price.toLocaleString()} VND</p>
+                                <p>Description: {selectedPlan.description}</p>
+                            </div>
+                        ) : (
+                            <p>Please select a plan from the list.</p>
+                        )}
+                    </div>
+                    <div className="modal-right">
+                        <h3>Choose Plan</h3>
+                        <ul>
+                            {plan.map((item, index) => (
+                                <li
+                                    key={item.planId}
+                                    onClick={() => handlePlanClick(item)}
+                                    className={`plan-item ${selectedPlan?.planId === item.planId ? 'selected' : ''}`}
+                                >
+                                    {item.planName} - {item.price} VND
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-                <div className="modal-right">
-                    <h3>Choose Plan</h3>
-                    <ul>
-                        {plan.map((item) => (
-                            <li
-                                key={item.planId}
-                                onClick={() => handlePlanClick(item)}
-                                className={selectedPlan?.planId === item.planId ? 'selected' : ''}>
-                                {item.planName} - {item.price} VND
-                            </li>
-
-                        ))}
-                    </ul>
-                </div>
-                <button onClick={handleConfirmClick}>Confirm</button>
+                <button onClick={handleConfirmClick} className="modal-button modal-button-confirm">Confirm</button>
                 {showConfirmation && (
                     <div>
                         <p>Are you sure you want to subscribe to this plan?</p>
-                        <button onClick={handleFinalConfirm}>Yes, Subscribe</button>
-                        <button onClick={() => setShowConfirmation(false)}>Cancel</button>
+                        <button onClick={handleFinalConfirm} className="modal-button modal-button-confirm">Yes, Subscribe</button>
+                        <button onClick={() => setShowConfirmation(false)} className="modal-button modal-button-cancel">Cancel</button>
                     </div>
                 )}
             </Modal>
@@ -450,8 +446,8 @@ const User = () => {
                 <Modal show={renewModalVisible} onClose={() => setRenewModalVisible(false)}>
                     <h3>Confirm Renewal</h3>
                     <p>Are you sure you want to renew this ad?</p>
-                    <button className="confirm-btn" onClick={confirmRenewal}>Yes, Pay for it</button>
-                    <button className="cancel-btn" onClick={() => setRenewModalVisible(false)}>Cancel</button>
+                    <button className="modal-button modal-button-confirm" onClick={confirmRenewal}>Yes, Pay for it</button>
+                    <button className="modal-button modal-button-cancel" onClick={() => setRenewModalVisible(false)}>Cancel</button>
                 </Modal>
             )}
         </div>
