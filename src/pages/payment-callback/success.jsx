@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Button, Result } from "antd";
+import { Button, Result, Spin } from "antd";
 import api from "../../config/axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./payment.css";
 
 function PaymentResultPage() {
     const location = useLocation();
     const [status, setStatus] = useState(null);
     const [message, setMessage] = useState("");
     const [adId, setAdId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // Added state to manage loading status
     const navigate = useNavigate();
 
     const postOrderID = async () => {
         const queryParams = new URLSearchParams(location.search);
         const vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
         const vnp_TxnRef = queryParams.get("vnp_TxnRef");
+        
         try {
             const response = await api.get(`/ads/vn-pay-callback`, {
                 params: {
@@ -32,14 +35,17 @@ function PaymentResultPage() {
                 setStatus("error");
             } else {
                 setStatus("error");
-                setMessage("Có lỗi xảy ra khi xử lý thanh toán.");
+                setMessage("An error occurred while processing the payment.");
             }
         } catch (e) {
             console.log(e);
             setStatus("error");
-            setMessage("Có lỗi xảy ra khi xử lý thanh toán.");
+            setMessage("An error occurred while processing the payment.");
+        } finally {
+            setIsLoading(false); // Turn off loading status when API results are available
         }
     };
+
     const handleFinalApproval = async () => {
         if (adId) {
             try {
@@ -70,32 +76,34 @@ function PaymentResultPage() {
     }, []);
 
     return (
-        <div>
-            {status === "success" ? (
+        <div className="payment-result-page">
+            {isLoading ? (
+                <Spin tip="Processing payment..." size="large" /> // Display loading while waiting for API
+            ) : status === "success" ? (
                 <Result
                     status="success"
                     title={message}
                     subTitle=" "
                     extra={[
                         <Button type="primary" key="approve" onClick={handleFinalApproval}>
-                            Public quảng cáo đó
+                            Publish Advertisement
                         </Button>,
                         <Button type="primary" key="redirect" onClick={handleViewAds}>
-                            Xem lại quảng cáo
+                            View Advertisement
                         </Button>,
                     ]}
                 />
             ) : (
                 <Result
                     status="error"
-                    title="Payment Fail"
+                    title="Payment Failed"
                     subTitle="Check your advertisement"
                     extra={[
                         <Button type="primary" key="retry" onClick={handleRetry}>
-                            Thử lại
+                            Retry
                         </Button>,
                         <Button key="home" onClick={handleBackToHome}>
-                            Quay lại trang chủ
+                            Back to Home
                         </Button>,
                     ]}
                 />
@@ -103,4 +111,5 @@ function PaymentResultPage() {
         </div>
     );
 }
+
 export default PaymentResultPage;

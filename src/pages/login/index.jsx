@@ -1,68 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AuthenTemplate from "../../components/authen-template";
 import { Button, Form, Input, Modal } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../config/axios";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/userSlide";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation(); // Lấy thông tin URL hiện tại
   const dispatch = useDispatch();
   const [isForgotModalVisible, setIsForgotModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-
-
-  // State for failed login attempts and lockout
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
   const [lockoutDuration, setLockoutDuration] = useState(0);
+  const [captchaToken, setCaptchaToken] = useState(null);
 
-
-  // Calculate lockout duration based on failed attempts
-  useEffect(() => {
-    if (failedAttempts === 3) setLockoutDuration(30); // 30 seconds after 3 failed attempts
-  }, [failedAttempts]);
-
-
-  useEffect(() => {
-    if (lockoutDuration > 0) {
-      setIsLocked(true);
-      const timer = setTimeout(() => {
-        setLockoutDuration((prev) => prev - 1);
-      }, 1000);
-
-
-      if (lockoutDuration === 1) {
-        setIsLocked(false);
-        setFailedAttempts(0);
-      }
-
-
-      return () => clearTimeout(timer);
-    }
-  }, [lockoutDuration]);
+  const onCaptchaChange = (token) => {
+    setCaptchaToken(token);
+  };
 
   const handleLogin = async (values) => {
-    if (isLocked) return;
+    if (isLocked) {
+      toast.error("You are temporarily locked out. Please wait.");
+      return;
+    }
 
+    if (!captchaToken) {
+      toast.error("Please complete reCAPTCHA");
+      return;
+    }
 
     try {
-      const response = await api.post("auth/login", values);
+      const response = await api.post("auth/login", { ...values, captchaToken });
       toast.success("Login successful!");
       dispatch(login(response.data));
       const { role, token, accountId } = response.data;
       localStorage.setItem("accountId", accountId);
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
-      if (role === "ADMIN") {
-        navigate("/dashboard/manage-users");
-      } else {
-        navigate("/");
-      }
+
+      // Lấy đường dẫn redirect hoặc đặt mặc định là "/"
+      const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
+      navigate(redirectPath); // Điều hướng quay lại trang gốc hoặc trang mặc định
     } catch (err) {
       toast.error(err.response?.data || "Login failed.");
       setFailedAttempts((prev) => prev + 1);
@@ -88,12 +72,14 @@ function LoginPage() {
       toast.success("Login successful!");
       dispatch(login(data));
       localStorage.setItem("token", data.token);
-      navigate(data.role === "ADMIN" ? "/dashboard" : "/");
+
+      // Lấy đường dẫn redirect hoặc đặt mặc định là "/"
+      const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
+      navigate(redirectPath); // Điều hướng quay lại trang gốc hoặc trang mặc định
     } catch (error) {
       toast.error(error.response?.data || "Google login failed.");
     }
   };
-
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
@@ -119,7 +105,6 @@ function LoginPage() {
             </div>
           </Form.Item>
 
-
           <Form.Item
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
@@ -132,11 +117,28 @@ function LoginPage() {
             </div>
           </Form.Item>
 
+          {/* Thu nhỏ reCAPTCHA v2 bằng CSS */}
+          <Form.Item>
+            <div style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20px",
+              marginBottom: "20px",
+              transform: "scale(0.8)", // Thu nhỏ reCAPTCHA xuống 80%
+              transformOrigin: "center", // Căn giữa khi thu nhỏ
+              maxWidth: "100%"
+            }}>
+              <ReCAPTCHA
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={onCaptchaChange}
+              />
+            </div>
+          </Form.Item>
 
           <Button type="primary" htmlType="submit" className="btn" disabled={isLocked}>
             {isLocked ? `Please wait ${lockoutDuration}s` : "Login"}
           </Button>
-
 
           <div style={{ marginTop: "15px", textAlign: "center" }}>
             <Link to="/register" className="link">
@@ -144,13 +146,11 @@ function LoginPage() {
             </Link>
           </div>
 
-
           <div style={{ marginTop: "10px", textAlign: "center" }}>
             <Button type="link" onClick={() => setIsForgotModalVisible(true)}>
               Forgot Password?
             </Button>
           </div>
-
 
           <Modal
             title="Forgot Password"
@@ -174,7 +174,6 @@ function LoginPage() {
             </Form>
           </Modal>
 
-
           <div style={{ marginTop: "20px", textAlign: "center" }}>
             <GoogleLogin onSuccess={handleGoogleLogin} onError={() => toast.error("Google login failed.")} />
           </div>
@@ -184,10 +183,4 @@ function LoginPage() {
   );
 }
 
-
 export default LoginPage;
-
-
-
-
-

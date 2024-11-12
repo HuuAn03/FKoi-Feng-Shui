@@ -30,7 +30,7 @@ const AppFooter = () => {
       <div className="contact-info">
         <h5>Contact Us</h5>
         <p>Email: contact@myapp.com</p>
-        <p>Phone: +1 (555) 123-4567</p>
+        <p>Phone: 1900 6600</p>
         <p>Address: Lot E2a-7, D1 Street, Long Thanh My, Thu Duc City</p>
         <div className="social-icons">
           <a href="https://www.facebook.com/hieuphihihihihi/" target="_blank" rel="noopener noreferrer">
@@ -75,7 +75,7 @@ const AppFooter = () => {
           />
           <Marker position={position} icon={companyIcon}>
             <Popup>
-              <strong>GenKiKoi</strong>
+              <strong>FKoi FengShui</strong>
             </Popup>
           </Marker>
         </MapContainer>
@@ -89,8 +89,10 @@ const AppFooter = () => {
 
       {/* Footer Bottom */}
       <div className="text-center mt-3 footer-bottom-text" style={{ width: "100%" }}>
-        ©2024 Created by MyApp
+        <div>Powered with Passion and Technology</div>
+        <div>Proudly crafted by a team from FPT University, the leading technology institution.</div>
       </div>
+
     </Footer>
   );
 };

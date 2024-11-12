@@ -1,0 +1,11 @@
+.payment-result-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Đặt chiều cao tối thiểu để bao phủ toàn màn hình */
+}
+.payment-result-page {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
