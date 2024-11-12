@@ -3,26 +3,33 @@ import { Button, Form, Input, Select, Upload, message, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import './blog.css';
 import api from '../../config/axios';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Blog = () => {
     const [form] = Form.useForm();
     const [thumbnailFileList, setThumbnailFileList] = useState([]);
     const [imageFileList, setImageFileList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [content, setContent] = useState('');
+
     const handleBlogPost = async (values) => {
         const formData = new FormData();
+    
         formData.append("title", values.title);
-        formData.append("content", values.content);
+        formData.append("content", content);
         formData.append("shortDescription", values.shortDescription);
         formData.append("categoryName", values.categoryName);
-        formData.append("tags", JSON.stringify(values.tags.split(',').map(tag => tag.trim())));
-
+    
+        values.tags.split(',').map(tag => formData.append("tags", tag.trim()));
+    
         if (thumbnailFileList.length > 0) {
             formData.append("thumbnail", thumbnailFileList[0].originFileObj);
         }
         if (imageFileList.length > 0) {
             formData.append("imageFile", imageFileList[0].originFileObj);
         }
+    
         setLoading(true);
         try {
             await api.post("/blogs/post", formData, {
@@ -34,6 +41,7 @@ const Blog = () => {
             form.resetFields();
             setThumbnailFileList([]);
             setImageFileList([]);
+            setContent('');
         } catch (error) {
             message.error("Failed to create blog post. Please check your inputs.");
         } finally {
@@ -82,7 +90,11 @@ const Blog = () => {
                         name="content"
                         rules={[{ required: true, message: "Please input the content" }]}
                     >
-                        <Input.TextArea placeholder="Content" rows={6} />
+                        <ReactQuill
+                            value={content}
+                            onChange={setContent}
+                            placeholder="Write your content here..."
+                        />
                     </Form.Item>
 
                     <Form.Item
@@ -90,8 +102,15 @@ const Blog = () => {
                         rules={[{ required: true, message: "Please select a category" }]}
                     >
                         <Select placeholder="Select Category">
-                            <Select.Option value="category1">Koi Fish</Select.Option>
-                            <Select.Option value="category2">Feng Shui</Select.Option>
+                            <Select.Option value="WEATH">Weath</Select.Option>
+                            <Select.Option value="TRADITIONS">Traditions</Select.Option>
+                            <Select.Option value="PHYSIOGNOMY">Physiognomy</Select.Option>
+                            <Select.Option value="OFFICE">Office</Select.Option>
+                            <Select.Option value="LOVE">Love</Select.Option>
+                            <Select.Option value="LIFESTYLE">Lifestyle</Select.Option>
+                            <Select.Option value="HOMEDECOR">Home&Decor</Select.Option>
+                            <Select.Option value="CRYSTALS">Crystals</Select.Option>
+                            <Select.Option value="CURES">Cures&Enhancers</Select.Option>
                         </Select>
                     </Form.Item>
 
