@@ -63,10 +63,10 @@ const UserManagement = () => {
             {users.map((user) => (
               <tr key={user.user}>
                 <td>{user.user}</td>
-                <td>{user.fullName}</td>
-                <td>{user.phoneNumber}</td>
-                <td>{user.birthdate}</td>
-                <td>{user.gender}</td>
+                <td>{user.fullName || "N/A"}</td>
+                <td>{user.phoneNumber || "N/A"}</td>
+                <td>{user.birthdate || "N/A"}</td>
+                <td>{user.gender || "N/A"}</td>
                 <td>
                   <button onClick={() => toggleUserStatus(user.user)}>
                     {status === "ACTIVE" ? "Block" : "Unblock"}
