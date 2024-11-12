@@ -94,7 +94,13 @@ h1 {
   font-size: 0.9em;
   color: #666;
   margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Hiển thị tối đa 3 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 .blog-meta {
   font-size: 0.8em;

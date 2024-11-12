@@ -51,3 +51,21 @@
     color: #ff4d4d;
   }
   
+  .modal-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .modal-content b {
+    font-weight: bold;
+  }
+  
+  .modal-content i {
+    font-style: italic;
+  }
+  
+  .modal-content span {
+    color: inherit; /* Thêm màu nếu cần */
+  }
+  

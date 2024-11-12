@@ -28,6 +28,7 @@ function PaymentResultPage() {
             setMessage(response.data.message);
             setAdId(response.data.adId);
 
+            // Check for success or failure codes
             if (vnp_ResponseCode === "00") {
                 setStatus("success");
             } else if (["01", "02"].includes(vnp_ResponseCode)) {
@@ -41,7 +42,7 @@ function PaymentResultPage() {
             setStatus("error");
             setMessage("An error occurred while processing the payment.");
         } finally {
-            setIsLoading(false);
+            setIsLoading(false); // Turn off loading status when API results are available
         }
     };
 

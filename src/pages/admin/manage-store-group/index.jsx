@@ -21,11 +21,10 @@ function ManageServiceGroup() {
         const formData = new FormData();
     
         formData.append("title", values.title);
-        formData.append("content", content); // Nội dung HTML từ React Quill
+        formData.append("content", content);
         formData.append("shortDescription", values.shortDescription);
         formData.append("categoryName", values.categoryName);
     
-        // Thêm từng tag vào FormData để Spring Boot xử lý như một danh sách
         values.tags.split(',').map(tag => formData.append("tags", tag.trim()));
     
         if (thumbnailFileList.length > 0) {
