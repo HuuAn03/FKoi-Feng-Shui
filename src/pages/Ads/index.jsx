@@ -4,6 +4,7 @@ import { PhoneOutlined, DollarOutlined, UserOutlined, UploadOutlined } from '@an
 import api from '../../config/axios';
 import { toast } from 'react-toastify';
 import './Ads.css';
+import { Navigate } from 'react-router-dom';
 
 function ADS() {
     const [form] = Form.useForm();
@@ -36,6 +37,7 @@ function ADS() {
             toast.error("Check your advertisement for errors");
         } finally {
             setLoading(false); // Kết thúc loading xoay
+            Navigate("/user")
         }
     };
 

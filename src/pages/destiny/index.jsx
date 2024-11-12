@@ -118,7 +118,7 @@ const Destiny = () => {
         title: "Market Price",
         dataIndex: "price",
         key: "price",
-        render: (text) => `${text} VND`,
+        render: (text) => `~ ${text} VND`,
         width: 150,
         align: "right",
       },
@@ -324,9 +324,9 @@ const Destiny = () => {
           </motion.div>
         </Card>
       </div>
-      {renderProductTable()}
       {renderKoiTable()}
       {renderPondTable()}
+      {renderProductTable()}
     </div>
   );
 };

@@ -246,7 +246,7 @@ const User = () => {
                 <button onClick={() => {
                     setShowProfileForm(false);
                     setShowBlogForm(false);
-                    setShowUserBlogs(true); 
+                    setShowUserBlogs(true);
                 }} className="sidebar-btn">
                     My Blog
                 </button>
@@ -320,9 +320,9 @@ const User = () => {
                         <button type="submit" className="form-submit-btn">Submit</button>
                     </Form>
                 ) : showBlogForm ? (
-                    <Blog />  
+                    <Blog />
                 ) : showUserBlogs ? (
-                    <UserBlogs /> 
+                    <UserBlogs />
                 ) : (
                     <div className="ad-list-container">
                         <table className="ad-table">

@@ -76,15 +76,15 @@ function ProductDetailPage() {
 
 
           <div className="quantity-selector">
-            <label>Số lượng:</label>
+            <label>Quantity:</label>
             <button onClick={() => handleQuantityChange(-1)}>-</button>
             <span>{quantity}</span>
             <button onClick={() => handleQuantityChange(1)}>+</button>
           </div>
 
 
-          <h3>Tổng tiền tạm tính: {(product.price * quantity).toLocaleString()} VND</h3>
-          <button className="buy-button">MUA NGAY</button>
+          <h3>TOTAL: {(product.price * quantity).toLocaleString()} VND</h3>
+          <button className="buy-button">BUY NOW</button>
         </div>
       </div>
 
@@ -92,21 +92,21 @@ function ProductDetailPage() {
       {/* Product Benefit Section */}
       <div className="product-benefits">
         <ul>
-          <li><span>1</span> Được tư vấn chuẩn phong thủy cá nhân theo BÁT TỰ.</li>
-          <li><span>2</span> Thiết kế theo tiêu chuẩn phong thủy cao cấp.</li>
-          <li><span>3</span> Sản phẩm đá tự nhiên được GIÁM ĐỊNH bởi trung tâm giám định ngọc học LIULAB.</li>
-          <li><span>4</span> Bảo hành tẩy năng lượng sản phẩm, làm sạch trong 12 tháng.</li>
-          <li><span>5</span> Miễn phí giao hàng.</li>
-          <li><span>6</span> Xi phủ mạ vàng.</li>
-          <li><span>7</span> Sản phẩm Vàng được quang phổ đảm bảo chất lượng.</li>
-          <li><span>8</span> Tư vấn phong thủy chuyên sâu và tận tâm với khách hàng.</li>
+          <li><span>1</span> Personalized feng shui consultation tailored to your BaZi (Four Pillars of Destiny).</li>
+          <li><span>2</span> Design created in accordance with premium feng shui standards.</li>
+          <li><span>3</span> Natural stone products certified by the LIULAB Gemological Center.</li>
+          <li><span>4</span> Includes a 12-month energy cleansing and product maintenance warranty.</li>
+          <li><span>5</span> Free shipping on all orders.</li>
+          <li><span>6</span> Gold-plated finishing for enhanced elegance and durability.</li>
+          <li><span>7</span> Gold products tested via spectroscopic analysis to ensure superior quality.</li>
+          <li><span>8</span> Expert and dedicated feng shui guidance for a harmonious lifestyle.</li>
         </ul>
       </div>
 
 
       {/* Suggested Products Section */}
       <div className="suggested-products">
-        <h2>Gợi ý sản phẩm khác</h2>
+        <h2>SUGGESTED PRODUCTS</h2>
         <div className="suggested-products-list">
           {suggestedProducts.map((suggestedProduct) => (
             <div key={suggestedProduct.adId} className="suggested-product-card" onClick={() => navigate(`/product/${suggestedProduct.adId}`)}>
