@@ -246,7 +246,7 @@ const User = () => {
                 <button onClick={() => {
                     setShowProfileForm(false);
                     setShowBlogForm(false);
-                    setShowUserBlogs(true); // Show User Blogs
+                    setShowUserBlogs(true); 
                 }} className="sidebar-btn">
                     My Blog
                 </button>
@@ -320,9 +320,9 @@ const User = () => {
                         <button type="submit" className="form-submit-btn">Submit</button>
                     </Form>
                 ) : showBlogForm ? (
-                    <Blog />  // Render Blog form component
+                    <Blog />  
                 ) : showUserBlogs ? (
-                    <UserBlogs />  // Render UserBlogs component
+                    <UserBlogs /> 
                 ) : (
                     <div className="ad-list-container">
                         <table className="ad-table">
@@ -355,9 +355,6 @@ const User = () => {
                                             )}
                                             {ad.status === 'EXPIRED' && (
                                                 <button className="renew" onClick={() => handleRenewAd(ad.adId)}>Renew</button>
-                                            )}
-                                            {ad.status === 'EXPIRED' && (
-                                                <button className="renew" onClick={() => handleRenewAd(ad.adId)}>Repay</button>
                                             )}
                                         </td>
                                     </tr>

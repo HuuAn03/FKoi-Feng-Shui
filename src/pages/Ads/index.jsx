@@ -65,7 +65,7 @@ function ADS() {
                         >
                             <Input
                                 placeholder="Item Name"
-                                
+
                                 className="ads-input"
                             />
                         </Form.Item>
@@ -97,13 +97,21 @@ function ADS() {
                             name="price"
                             rules={[
                                 { required: true, message: "Please input the price" },
-                                
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || parseFloat(value) > 0) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(new Error("Price must be a positive number"));
+                                    },
+                                }),
                             ]}
                         >
                             <Input
                                 placeholder="Price"
                                 prefix={<DollarOutlined />}
                                 className="ads-input"
+                                type="number"
                             />
                         </Form.Item>
 
@@ -159,7 +167,7 @@ function ADS() {
                             Submit
                         </Button>
                     </Form>
-                    
+
                 </div>
             </Spin>
         </div>
