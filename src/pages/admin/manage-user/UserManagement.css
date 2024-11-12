@@ -85,3 +85,47 @@
     margin-bottom: 20px;
   }
   
+  .status-select {
+    margin-bottom: 20px;
+    padding: 5px 10px;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #7298d1;
+    font-weight: bold;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    margin: 0 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .pagination span {
+    font-weight: bold;
+  }
+  
