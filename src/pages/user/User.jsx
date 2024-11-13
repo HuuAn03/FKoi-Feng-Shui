@@ -198,26 +198,46 @@ const User = () => {
     const fetchTransactions = async (transactionPageNumber = transactionPage) => {
         try {
             const response = await api.get(`transactions/my?page=${transactionPageNumber}&size=5`);
-            setTransactions(response.data.transactions);
-            setTransactionTotalPages(response.data.totalPages);
+            const data = response.data;
+
+            // Lưu trữ các thông tin từ API
+            setTransactions(data.transactions);
+            setTransactionTotalPages(data.totalPages);
+            setTransactionPage(data.currentPage); // Cập nhật `transactionPage` dựa trên `currentPage` từ API
         } catch (error) {
             console.error("Error fetching transactions:", error);
         }
     };
 
+
     const handleTransactionNextPage = () => {
         if (transactionPage < transactionTotalPages - 1) {
-            setTransactionPage(transactionPage + 1);
-            fetchTransactions(transactionPage + 1);
+            const nextPage = transactionPage + 1;
+            setTransactionPage(nextPage);
+            fetchTransactions(nextPage);
         }
     };
 
     const handleTransactionPreviousPage = () => {
         if (transactionPage > 0) {
-            setTransactionPage(transactionPage - 1);
-            fetchTransactions(transactionPage - 1);
+            const prevPage = transactionPage - 1;
+            setTransactionPage(prevPage);
+            fetchTransactions(prevPage);
         }
     };
+
+
+    const handleRepay = async (adId) => {
+        try {
+            const response = await api.put(`/ads/${adId}/repay`);
+            window.location.href = response.data;
+        } catch (error) {
+            console.error("Error during repayment:", error.response ? error.response.data : error.message);
+            toast.error("Failed to initiate repayment. Please try again.");
+        }
+    };
+
+
 
     return (
         <div className="user-container">
@@ -246,7 +266,7 @@ const User = () => {
                 <button onClick={() => {
                     setShowProfileForm(false);
                     setShowBlogForm(false);
-                    setShowUserBlogs(true); 
+                    setShowUserBlogs(true);
                 }} className="sidebar-btn">
                     My Blog
                 </button>
@@ -320,9 +340,9 @@ const User = () => {
                         <button type="submit" className="form-submit-btn">Submit</button>
                     </Form>
                 ) : showBlogForm ? (
-                    <Blog />  
+                    <Blog />
                 ) : showUserBlogs ? (
-                    <UserBlogs /> 
+                    <UserBlogs />
                 ) : (
                     <div className="ad-list-container">
                         <table className="ad-table">
@@ -351,24 +371,28 @@ const User = () => {
                                                 <button className="choose-plan" onClick={() => handlePayment(ad.adId)}>Choose Plan</button>
                                             )}
                                             {ad.status === 'QUEUED_FOR_POST' && (
-                                                <button className="post-ad" onClick={() => handleFinalApproval(ad.adId)}>Post Ad</button>
+                                                <button className="post-ad" onClick={() => handleFinalApproval(ad.adId)}>Post Ads</button>
                                             )}
                                             {ad.status === 'EXPIRED' && (
                                                 <button className="renew" onClick={() => handleRenewAd(ad.adId)}>Renew</button>
                                             )}
+                                            {ad.status === 'PAYMENT_FAILED' && (
+                                                <button className="repay" onClick={() => handleRepay(ad.adId)}>Repay</button>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
-                                <div className="pagination">
-                                    <button onClick={handlePreviousPage} disabled={page === 0}>
-                                        Previous
-                                    </button>
-                                    <span>Page {page + 1} of {totalPages}</span>
-                                    <button onClick={handleNextPage} disabled={page === totalPages - 1}>
-                                        Next
-                                    </button>
-                                </div>
                             </tbody>
+                            <div className="pagination">
+                                <button onClick={handlePreviousPage} disabled={page === 0}>
+                                    Previous
+                                </button>
+                                <span>Page {page + 1} of {totalPages}</span>
+                                <button onClick={handleNextPage} disabled={page === totalPages - 1}>
+                                    Next
+                                </button>
+                            </div>
+
                         </table>
                     </div>
                 )}
@@ -383,7 +407,9 @@ const User = () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Amount</th>
+                                <th>Amount (VND)</th>
+                                <th>Payment Method</th>
+                                <th>Payment Status</th>
                                 <th>Plan Name</th>
                                 <th>Date</th>
                             </tr>
@@ -412,16 +438,30 @@ const User = () => {
                                         </td>
                                         <td>
                                             <div className="tooltip">
+                                                {transaction.paymentMethod || 'N/A'}
+                                                <span className="tooltip-text">Payment Method</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="tooltip">
+                                                {transaction.paymentStatus || 'N/A'}
+                                                <span className="tooltip-text">Payment Status</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="tooltip">
                                                 {transaction.planName || 'N/A'}
                                                 <span className="tooltip-text">Plan</span>
                                             </div>
                                         </td>
-                                        <td>{transaction.transactionDate ? moment(transaction.transactionDate).format("DD/MM/YYYY") : 'N/A'}</td>
+                                        <td>
+                                            {transaction.transactionDate ? moment(transaction.transactionDate).format("DD/MM/YYYY") : 'N/A'}
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" style={{ textAlign: 'center' }}>No transactions found</td>
+                                    <td colSpan="7" style={{ textAlign: 'center' }}>No transactions found</td>
                                 </tr>
                             )}
                         </tbody>
@@ -438,6 +478,7 @@ const User = () => {
                 </Modal>
             )}
 
+
             {/* Plan Selection Modal */}
             <Modal show={showModal} onClose={() => setShowModal(false)}>
                 <div className="modal-container">
@@ -445,10 +486,21 @@ const User = () => {
                         <h3>Selected Plan Details</h3>
                         {selectedPlan ? (
                             <div className="plan-details">
-                                <p>Duration: {selectedPlan.duration}</p>
-                                <p>Priority: {selectedPlan.adPlacementPriority}</p>
-                                <p>Price: {selectedPlan.price.toLocaleString()} VND</p>
-                                <p>Description: {selectedPlan.description}</p>
+                                <p>
+                                    <span className="highlight">Duration:</span>
+                                    <span className="highlight-value">{selectedPlan.duration} days</span>
+                                </p>
+                                <p>
+                                    <span className="highlight">Priority:</span>
+                                    <span className="priority-badge">{selectedPlan.adPlacementPriority}</span>
+                                </p>
+                                <p>
+                                    <span className="highlight">Price:</span>
+                                    <span className="highlight-value">{selectedPlan.price.toLocaleString()} VND</span>
+                                </p>
+                                <p>
+                                    <span className="highlight">Description:</span> {selectedPlan.description}
+                                </p>
                             </div>
                         ) : (
                             <p>Please select a plan from the list.</p>
@@ -457,13 +509,13 @@ const User = () => {
                     <div className="modal-right">
                         <h3>Choose Plan</h3>
                         <ul>
-                            {plan.map((item, index) => (
+                            {plan.map((item) => (
                                 <li
                                     key={item.planId}
                                     onClick={() => handlePlanClick(item)}
                                     className={`plan-item ${selectedPlan?.planId === item.planId ? 'selected' : ''}`}
                                 >
-                                    {item.planName} - {item.price} VND
+                                    {item.planName} - {item.price.toLocaleString()} VND
                                 </li>
                             ))}
                         </ul>
@@ -478,6 +530,7 @@ const User = () => {
                     </div>
                 )}
             </Modal>
+
 
             {/* Renewal Confirmation Modal */}
             {renewModalVisible && (

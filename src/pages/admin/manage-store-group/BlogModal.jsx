@@ -37,7 +37,11 @@ function BlogModal({ blogId, onClose }) {
         <p><strong>Updated At:</strong> {new Date(blog.updatedAt).toLocaleString()}</p>
         <p><strong>Views:</strong> {blog.viewsCount}</p>
         <p><strong>Tags:</strong> {blog.tags.join(', ')}</p>
-        <div className="modal-content">{blog.content}</div>
+        <div
+          className="modal-content"
+          dangerouslySetInnerHTML={{ __html: blog.content }}
+        ></div>
+
       </div>
     </div>
   );

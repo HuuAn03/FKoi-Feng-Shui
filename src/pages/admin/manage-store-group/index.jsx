@@ -2,31 +2,38 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Select, Upload, message, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import './ManageServiceGroup.css'; 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './ManageServiceGroup.css';
 import api from '../../../config/axios';
+
 
 function ManageServiceGroup() {
     const [form] = Form.useForm();
     const [thumbnailFileList, setThumbnailFileList] = useState([]);
     const [imageFileList, setImageFileList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [content, setContent] = useState(''); // State để lưu nội dung content
     const navigate = useNavigate();
+
+
     const handleBlogPost = async (values) => {
         const formData = new FormData();
-        
+    
         formData.append("title", values.title);
-        formData.append("content", values.content);
+        formData.append("content", content);
         formData.append("shortDescription", values.shortDescription);
         formData.append("categoryName", values.categoryName);
-        formData.append("tags", JSON.stringify(values.tags.split(',').map(tag => tag.trim())));
-        
+    
+        values.tags.split(',').map(tag => formData.append("tags", tag.trim()));
+    
         if (thumbnailFileList.length > 0) {
             formData.append("thumbnail", thumbnailFileList[0].originFileObj);
         }
         if (imageFileList.length > 0) {
             formData.append("imageFile", imageFileList[0].originFileObj);
         }
-
+    
         setLoading(true);
         try {
             await api.post("/blogs/post", formData, {
@@ -38,23 +45,30 @@ function ManageServiceGroup() {
             form.resetFields();
             setThumbnailFileList([]);
             setImageFileList([]);
+            setContent('');
         } catch (error) {
             message.error("Failed to create blog post. Please check your inputs.");
         } finally {
             setLoading(false);
         }
     };
+    
+
 
     const handleThumbnailChange = ({ fileList }) => {
         setThumbnailFileList(fileList);
     };
 
+
     const handleImageFileChange = ({ fileList }) => {
         setImageFileList(fileList);
     };
+
+
     const navigateToBlogReview = () => {
         navigate('/dashboard/service-group');
     };
+
 
     return (
         <div className="blog-post-container">
@@ -72,6 +86,7 @@ function ManageServiceGroup() {
                         <Input placeholder="Title" />
                     </Form.Item>
 
+
                     <Form.Item
                         name="thumbnail"
                         label="Upload Thumbnail"
@@ -86,6 +101,7 @@ function ManageServiceGroup() {
                         </Upload>
                     </Form.Item>
 
+
                     <Form.Item
                         name="shortDescription"
                         rules={[{ required: true, message: "Please input a short description" }]}
@@ -93,22 +109,36 @@ function ManageServiceGroup() {
                         <Input.TextArea placeholder="Short Description" rows={4} />
                     </Form.Item>
 
+
                     <Form.Item
                         name="content"
                         rules={[{ required: true, message: "Please input the content" }]}
                     >
-                        <Input.TextArea placeholder="Content" rows={6} />
+                        <ReactQuill
+                            value={content}
+                            onChange={setContent}
+                            placeholder="Write your content here..."
+                        />
                     </Form.Item>
+
 
                     <Form.Item
                         name="categoryName"
                         rules={[{ required: true, message: "Please select a category" }]}
                     >
                         <Select placeholder="Select Category">
-                            <Select.Option value="category1">Koi Fish</Select.Option>
-                            <Select.Option value="category2">Feng Shui</Select.Option>
+                            <Select.Option value="WEATH">Weath</Select.Option>
+                            <Select.Option value="TRADITIONS">Traditions</Select.Option>
+                            <Select.Option value="PHYSIOGNOMY">Physiognomy</Select.Option>
+                            <Select.Option value="OFFICE">Office</Select.Option>
+                            <Select.Option value="LOVE">Love</Select.Option>
+                            <Select.Option value="LIFESTYLE">Lifestyle</Select.Option>
+                            <Select.Option value="HOMEDECOR">Home&Decor</Select.Option>
+                            <Select.Option value="CRYSTALS">Crystals</Select.Option>
+                            <Select.Option value="CURES">Cures&Enhancers</Select.Option>
                         </Select>
                     </Form.Item>
+
 
                     <Form.Item
                         name="tags"
@@ -116,6 +146,7 @@ function ManageServiceGroup() {
                     >
                         <Input placeholder="Tags (comma separated)" />
                     </Form.Item>
+
 
                     <Form.Item
                         name="imageFile"
@@ -131,6 +162,7 @@ function ManageServiceGroup() {
                         </Upload>
                     </Form.Item>
 
+
                     <Button type="primary" htmlType="submit" disabled={loading}>
                         Submit
                     </Button>
@@ -142,5 +174,6 @@ function ManageServiceGroup() {
         </div>
     );
 }
+
 
 export default ManageServiceGroup;

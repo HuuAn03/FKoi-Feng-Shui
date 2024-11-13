@@ -44,7 +44,6 @@ function LoginPage() {
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
-      // Lấy đường dẫn redirect hoặc đặt mặc định là "/"
       const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
       navigate(redirectPath); // Điều hướng quay lại trang gốc hoặc trang mặc định
     } catch (err) {
@@ -117,7 +116,6 @@ function LoginPage() {
             </div>
           </Form.Item>
 
-          {/* Thu nhỏ reCAPTCHA v2 bằng CSS */}
           <Form.Item>
             <div style={{
               display: "flex",
