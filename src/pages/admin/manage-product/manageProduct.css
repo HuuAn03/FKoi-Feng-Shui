@@ -1,87 +1,133 @@
-/* ManageProduct.css */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-  }
-  
-  thead {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  th, td {
-    padding: 12px;
-    text-align: center; /* Centering text in table cells */
-    border-bottom: 1px solid #ddd;
-    color: black; /* Changing text color to black */
-  }
-  
-  th {
-    font-weight: bold;
-  }
-  
-  tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  td {
-    color: black; /* Ensuring the text color is black */
-  }
-  
-  .loading, .error {
-    text-align: center;
-    color: #d9534f; /* Bootstrap danger color */
-    font-size: 18px;
-  }
-  
-  .no-ads {
-    text-align: center;
-    color: #6c757d; /* Bootstrap muted color */
-    font-size: 18px;
-    margin-top: 20px;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  background-color: #f9fbfd;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
 
-  .approve-btn {
-    background-color: #28a745; /* Green color for approve */
-    color: white;
-    padding: 6px 12px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .approve-btn:hover {
-    background-color: #218838; /* Darker green on hover */
-  }
-  
-  .reject-btn {
-    background-color: #dc3545; /* Red color for reject */
-    color: white;
-    padding: 6px 12px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .reject-btn:hover {
-    background-color: #c82333; /* Darker red on hover */
-  }
-  
+h1 {
+  text-align: center;
+  color: #3a7ca5;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+table:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+  background-color: #3a7ca5;
+  color: #ffffff;
+}
+
+th, td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #eaeff3;
+}
+
+tbody tr {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+tbody tr:hover {
+  background-color: #eef6fb;
+}
+
+tbody tr:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3a7ca5;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.approve-btn, .reject-btn {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.approve-btn {
+  background-color: #28a745;
+}
+
+.reject-btn {
+  background-color: #e74c3c;
+}
+
+.approve-btn:hover {
+  background-color: #218838;
+}
+
+.reject-btn:hover {
+  background-color: #c0392b;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 5px;
+  border: 1px solid #3a7ca5;
+  background-color: #ffffff;
+  color: #3a7ca5;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #3a7ca5;
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  color: #f39c12;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.no-ads {
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+  margin-top: 30px;
+}

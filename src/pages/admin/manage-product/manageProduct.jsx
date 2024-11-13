@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../config/axios';
+import AdsModal from './AdsModal';
 import './ManageProduct.css';
 
 function ManageProduct() {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0); // Track current page
-  const [totalPages, setTotalPages] = useState(0); // Total number of pages
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [selectedAdId, setSelectedAdId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const formatCurrencyVND = (amount) => {
+    return amount.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  };
 
   const fetchAds = async (pageNumber = 0, pageSize = 8) => {
     setLoading(true);
     try {
       const response = await api.get(`/ads/all?page=${pageNumber}&size=${pageSize}`);
-      
-      // Sort ads so that PENDING ads appear first
       const sortedAds = response.data.ads.sort((a, b) => {
         if (a.status === 'PENDING' && b.status !== 'PENDING') return -1;
         if (a.status !== 'PENDING' && b.status === 'PENDING') return 1;
         return 0;
       });
-      
       setAds(sortedAds);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -28,19 +35,16 @@ function ManageProduct() {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
-    fetchAds(page); // Fetch ads whenever `page` changes
+    fetchAds(page);
   }, [page]);
 
   const handleApprove = async (adId) => {
     try {
       await api.put(`ads/${adId}/status?status=APPROVED`);
       setAds((prevAds) =>
-        prevAds.map((ad) =>
-          ad.adId === adId ? { ...ad, status: 'APPROVED' } : ad
-        )
+        prevAds.map((ad) => (ad.adId === adId ? { ...ad, status: 'APPROVED' } : ad))
       );
     } catch (error) {
       console.error("Error approving ad:", error);
@@ -51,9 +55,7 @@ function ManageProduct() {
     try {
       await api.put(`ads/${adId}/status?status=REJECTED`);
       setAds((prevAds) =>
-        prevAds.map((ad) =>
-          ad.adId === adId ? { ...ad, status: 'REJECTED' } : ad
-        )
+        prevAds.map((ad) => (ad.adId === adId ? { ...ad, status: 'REJECTED' } : ad))
       );
     } catch (error) {
       console.error("Error rejecting ad:", error);
@@ -68,6 +70,16 @@ function ManageProduct() {
     if (page > 0) setPage(page - 1);
   };
 
+  const handleAdClick = (adId) => {
+    setSelectedAdId(adId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedAdId(null);
+    setIsModalOpen(false);
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
 
   return (
@@ -80,37 +92,44 @@ function ManageProduct() {
               <th>ID</th>
               <th>Product Name</th>
               <th>Type</th>
-              <th>Description</th>
               <th>Price</th>
               <th>Status</th>
-              <th>Days Left</th>
-              <th>Contact Info</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {ads.map((ad) => (
-              <tr key={ad.adId}>
+              <tr key={ad.adId} onClick={() => handleAdClick(ad.adId)}>
                 <td>{ad.adId}</td>
                 <td>{ad.productName}</td>
                 <td>{ad.productType}</td>
-                <td>{ad.description}</td>
-                <td>{ad.price}</td>
+                <td>{formatCurrencyVND(ad.price)}</td>
                 <td>{ad.status}</td>
-                <td>{ad.daysLeft}</td>
-                <td>{ad.contactInfo}</td>
                 <td>
                   {ad.status === 'PENDING' && (
                     <>
-                      <button className="approve-btn" onClick={() => handleApprove(ad.adId)}>
+                      <button
+                        className="approve-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleApprove(ad.adId);
+                        }}
+                      >
                         Approve
                       </button>
-                      <button className="reject-btn" onClick={() => handleReject(ad.adId)}>
+                      <button
+                        className="reject-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReject(ad.adId);
+                        }}
+                      >
                         Reject
                       </button>
                     </>
                   )}
                 </td>
+                <div className="tooltip">Click to view details</div>
               </tr>
             ))}
           </tbody>
@@ -119,16 +138,31 @@ function ManageProduct() {
         <div className="no-ads">No ads available</div>
       )}
 
-      {/* Pagination Controls */}
       <div className="pagination">
         <button onClick={handlePreviousPage} disabled={page === 0}>
           Previous
         </button>
-        <span>Page {page + 1} of {totalPages}</span>
+        <span>
+          Page {page + 1} of {totalPages}
+        </span>
         <button onClick={handleNextPage} disabled={page === totalPages - 1}>
           Next
         </button>
       </div>
+
+      {isModalOpen && <AdsModal
+        adId={selectedAdId}
+        onClose={handleCloseModal}
+        onStatusChange={(adId, newStatus) => {
+          setAds((prevAds) =>
+            prevAds.map((ad) =>
+              ad.adId === adId ? { ...ad, status: newStatus } : ad
+            )
+          );
+          handleCloseModal(); // Đóng modal sau khi cập nhật
+        }}
+      />
+      }
     </div>
   );
 }

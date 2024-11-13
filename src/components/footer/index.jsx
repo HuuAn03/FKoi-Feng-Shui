@@ -29,14 +29,16 @@ const AppFooter = () => {
       {/* Left Column: Contact Information */}
       <div className="contact-info">
         <h5>Contact Us</h5>
-        <p>Email: contact@myapp.com</p>
+        <a href="https://mail.google.com/mail/?view=cm&to=fkoifengshui@gmail.com&su=Contact%20Request&body=Hello,%20I%20would%20like%20to%20contact%20you." target="_blank">
+          Email: fkoifengshui@gmail.com
+        </a>
         <p>Phone: 1900 6600</p>
         <p>Address: Lot E2a-7, D1 Street, Long Thanh My, Thu Duc City</p>
         <div className="social-icons">
           <a href="https://www.facebook.com/hieuphihihihihi/" target="_blank" rel="noopener noreferrer">
             <FacebookOutlined className="social-icon" />
           </a>
-          <a href="https://twitter.com/your_twitter_profile" target="_blank" rel="noopener noreferrer">
+          <a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer">
             <TwitterOutlined className="social-icon" />
           </a>
           <a href="https://www.instagram.com/hieuphinehehe/" target="_blank" rel="noopener noreferrer">
