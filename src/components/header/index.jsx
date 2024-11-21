@@ -14,7 +14,7 @@ function Header() {
   };
 
   const goToDashboard = () => {
-    navigate("/dashboard/manage-users");
+    navigate("/dashboard/store");
   };
 
   return (
