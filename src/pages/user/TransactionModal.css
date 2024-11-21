@@ -1,0 +1,105 @@
+/* Container for the Transaction Modal */
+.transaction-modal-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-modal-header {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #64d4ed;
+  margin-bottom: 15px;
+}
+
+.transaction-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eda6a6;
+}
+
+.transaction-table th {
+  background-color: #a1e5f4;
+  font-weight: bold;
+}
+
+.transaction-table td {
+  color: #555;
+}
+
+/* Tooltip styling */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-container .tooltip-text {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the element */
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 200px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Pagination styling */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not([disabled]) {
+  background-color: #0056b3;
+}
+
+.pagination-info {
+  margin: 0 10px;
+  font-weight: bold;
+  color: #333;
+}

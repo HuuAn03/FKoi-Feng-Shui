@@ -37,20 +37,28 @@ function LoginPage() {
 
     try {
       const response = await api.post("auth/login", { ...values, captchaToken });
+
+      if (response.data.status === "INACTIVE") {
+        toast.error("Your account is INACTIVE. Please contact support.");
+        return;
+      }
+
       toast.success("Login successful!");
       dispatch(login(response.data));
+
       const { role, token, accountId } = response.data;
       localStorage.setItem("accountId", accountId);
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
       const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
-      navigate(redirectPath); // Điều hướng quay lại trang gốc hoặc trang mặc định
+      navigate(redirectPath);
     } catch (err) {
       toast.error(err.response?.data || "Login failed.");
       setFailedAttempts((prev) => prev + 1);
     }
   };
+
 
   const handleForgotPassword = async (values) => {
     setLoading(true);
@@ -72,9 +80,8 @@ function LoginPage() {
       dispatch(login(data));
       localStorage.setItem("token", data.token);
 
-      // Lấy đường dẫn redirect hoặc đặt mặc định là "/"
       const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
-      navigate(redirectPath); // Điều hướng quay lại trang gốc hoặc trang mặc định
+      navigate(redirectPath);
     } catch (error) {
       toast.error(error.response?.data || "Google login failed.");
     }
